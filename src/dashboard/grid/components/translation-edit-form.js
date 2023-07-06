@@ -75,7 +75,7 @@ export default function TranslationForm({ row, setOpen, setRows }) {
             onClick={() => {
               setOpen(false);
               setRows((allRows) => allRows?.map(r => {
-                if (r.name === row.name) {
+                if (r.id === row.id) {
                   return {
                     ...r,
                     status: reviewComment ? 'NeedFeedback' : finalTranslation ? 'finished' : undefined,

@@ -9,12 +9,13 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
-import { initialRows  } from './mock-data';
 import { getComparator, stableSort } from './utils';
-import EmptyRowsCard from './components/empty-grid';
+import EmptyGrid from './components/empty-grid';
+import LoadingGrid from './components/loading-grid';
 import EnhancedTableHead from './components/grid-head';
 import EnhancedTableToolbar from './components/grid-toolbar';
 import TranslationRow from './components/grid-row';
+import { getDataFromDBStatus } from '../api/list'
 
 export default function EnhancedTable() {
   const [order, setOrder] = React.useState('asc');
@@ -23,8 +24,17 @@ export default function EnhancedTable() {
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [rows, setRows] = React.useState(initialRows);
+  const [rows, setRows] = React.useState([]);
   const [showAll, setShowAll] = React.useState(true);
+  const [isLoading, setIsLoading] = React.useState(false);
+
+  React.useEffect(() => {
+    setIsLoading(true);
+    getDataFromDBStatus(0)?.then((data) => {
+      setRows(data || []);
+      setIsLoading(false);
+    });
+  }, []);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -34,7 +44,7 @@ export default function EnhancedTable() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelected = rows.map((n) => n.name);
+      const newSelected = rows.map((n) => n.id);
       setSelected(newSelected);
       return;
     }
@@ -87,21 +97,23 @@ export default function EnhancedTable() {
               onRequestSort={handleRequestSort}
               rowCount={rows.length}
             />
-            {rowsWithStatusFilter.length <= 0 ?
-            <EmptyRowsCard rows={rows}/> :
-            <TableBody>
-              {visibleRows.map((row, index) => <TranslationRow row={row} index={index} selected={selected} setSelected={setSelected} setRows={setRows} />)}
-              {emptyRows > 0 && (
-                <TableRow
-                  style={{
-                    height: (dense ? 33 : 53) * emptyRows,
-                  }}
-                >
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
-            </TableBody>}
-            
+            { isLoading ?
+            <LoadingGrid /> :
+            rowsWithStatusFilter.length <= 0 ?
+              <EmptyGrid rows={rows}/> :
+              <TableBody>
+                {visibleRows.map((row, index) => <TranslationRow row={row} index={index} selected={selected} setSelected={setSelected} setRows={setRows} />)}
+                {emptyRows > 0 && (
+                  <TableRow
+                    style={{
+                      height: (dense ? 33 : 53) * emptyRows,
+                    }}
+                  >
+                    <TableCell colSpan={6} />
+                  </TableRow>
+                )}
+              </TableBody>
+            }
           </Table>
         </TableContainer>
         <TablePagination

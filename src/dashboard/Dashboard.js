@@ -22,7 +22,6 @@ import { MainListItems, secondaryListItems } from './listItems';
 import Chart from './Chart';
 import Deposits from './Deposits';
 import Orders from './grid';
-import { getDataFromDB } from './api/list';
 
 function Copyright(props) {
   return (
@@ -91,7 +90,6 @@ export default function Dashboard() {
   const toggleDrawer = () => {
     setOpen(!open);
   };
-  getDataFromDB();
 
   return (
     <ThemeProvider theme={defaultTheme}>

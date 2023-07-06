@@ -37,15 +37,15 @@ const RowStatus = ({ row }) => {
 
 export default function TranslationRow(props) {
   const { row, index, selected, setSelected, setRows } = props;
-  const isItemSelected = isSelected(row.name, selected);
+  const isItemSelected = isSelected(row.id, selected);
   const labelId = `enhanced-table-checkbox-${index}`;
   const [open, setOpen] = React.useState(false);
-  const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name);
+  const handleClick = (event, id) => {
+    const selectedIndex = selected.indexOf(id);
     let newSelected = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
+      newSelected = newSelected.concat(selected, id);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -64,11 +64,11 @@ export default function TranslationRow(props) {
     <>
     <TableRow
       hover
-      onClick={(event) => handleClick(event, row.name)}
+      onClick={(event) => handleClick(event, row.id)}
       role="checkbox"
       aria-checked={isItemSelected}
       tabIndex={-1}
-      key={row.name}
+      key={row.id}
       selected={isItemSelected}
       sx={{ cursor: 'pointer'}}
     >
@@ -113,7 +113,7 @@ export default function TranslationRow(props) {
             <Tooltip title="Revert string status">
               <IconButton onClick={(e) => {
                 setRows((allRows) => allRows?.map(r => {
-                  if (r.name === row.name) {
+                  if (r.id === row.id) {
                     return {
                       ...r,
                       status: undefined,
@@ -129,7 +129,7 @@ export default function TranslationRow(props) {
               <Tooltip title="Accept current translation">
                 <IconButton onClick={(e) => {
                   setRows((allRows) => allRows?.map(r => {
-                    if (r.name === row.name) {
+                    if (r.id === row.id) {
                       return {
                         ...r,
                         status: 'finished',

@@ -47,7 +47,7 @@ export default function EnhancedTableToolbar(props) {
           <Tooltip title="Accept all selected translations">
             <IconButton onClick={() => {
                 setRows((allRows) => allRows?.map(r => {
-                  const isItemSelected = isSelected(r.name, selected);
+                  const isItemSelected = isSelected(r.id, selected);
                   if (isItemSelected) {
                     return {
                       ...r,
@@ -61,7 +61,7 @@ export default function EnhancedTableToolbar(props) {
               <DoneAllSharpIcon color='primary'/>
             </IconButton>
           </Tooltip>
-          <SendReportButton rows={rows?.filter(r => isSelected(r.name, selected))}/>
+          <SendReportButton rows={rows?.filter(r => isSelected(r.id, selected))}/>
         </div>
       ) : (
         <Tooltip title="Filter list">

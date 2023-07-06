@@ -31,4 +31,4 @@ export function stableSort(array, comparator) {
   return stabilizedThis.map((el) => el[0]);
 }
 
-export const isSelected = (name, selected) => selected.indexOf(name) !== -1;
+export const isSelected = (id, selected) => selected.indexOf(id) !== -1;

@@ -1,6 +1,6 @@
-export function createData(name, original, gptTranslation, devComment, stringOwner, reviewer, reviewComment) {
+export function createData(id, original, gptTranslation, devComment, stringOwner, reviewer, reviewComment) {
   return {
-    name,
+    id,
     original,
     gptTranslation,
     devComment,

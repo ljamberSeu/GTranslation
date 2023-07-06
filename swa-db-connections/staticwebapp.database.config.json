@@ -26,11 +26,11 @@
     }
   },
   "entities": {
-      "Person": {
+      "Translation": {
         "source": "pending_translation",
         "permissions": [
           {
-            "actions": ["*"],
+            "actions": ["read", "update"],
             "role": "anonymous"
           }
         ]
