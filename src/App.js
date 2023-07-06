@@ -12,8 +12,8 @@ function App() {
   const [showAll, setShowAll] = React.useState(true);
   const [startDate, setStartDate] = React.useState(() => {
     var d = new Date();
-    // Set it to one month ago
-    d.setMonth(d.getMonth() - 1);
+    // Set it to 7 days ago ago
+    d.setDate(d.getDate() - 7);
     return dayjs(d);
   });
 
