@@ -15,9 +15,19 @@ export const getDataFromDB = async () => callFuctionWithErrorHandle(async () => 
   return data.value;
 });
 
-export const getDataFromDBStatus = async (status) => callFuctionWithErrorHandle(async () => {
+export const getDataFromDBStatus = async ({
+  status,
+  startDate,
+}) => callFuctionWithErrorHandle(async () => {
   const endpoint = `/data-api/rest/Translation`;
-  const response = await fetch(`${endpoint}?$filter=status eq ${status}`);
+  const urlExtend = [];
+  if (status !== null) {
+    urlExtend.push(`status eq ${status}`);
+  }
+  if (startDate) {
+    urlExtend.push(`timestamp ge ${startDate.$d.toISOString()}`);
+  }
+  const response = await fetch(`${endpoint}?$filter=${urlExtend?.join(' and ')}`);
   const result = await response.json();
   console.table(result.value);
   return result.value;
@@ -35,7 +45,7 @@ export const updateSingleTranslation = async (row) => callFuctionWithErrorHandle
     body: JSON.stringify(data)
   });
   const result = await response.json();
-  console.table(result.value);
+  return result.value;
 });
 
 export async function createDate() {

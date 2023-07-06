@@ -22,6 +22,7 @@ import { MainListItems, secondaryListItems } from './listItems';
 import Chart from './Chart';
 import Deposits from './Deposits';
 import Orders from './grid';
+import DatePickerComponent from './date-picker';
 
 function Copyright(props) {
   return (
@@ -122,8 +123,9 @@ export default function Dashboard() {
             >
               Review Dashboard
             </Typography>
+            <DatePickerComponent />
             <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
+              <Badge badgeContent={1} color="secondary">
                 <NotificationsIcon />
               </Badge>
             </IconButton>

@@ -16,6 +16,7 @@ import EnhancedTableHead from './components/grid-head';
 import EnhancedTableToolbar from './components/grid-toolbar';
 import TranslationRow from './components/grid-row';
 import { TranslationContext } from '../../data'
+import { TranslationStatus } from './components/constants';
 
 export default function EnhancedTable() {
   const [order, setOrder] = React.useState('asc');
@@ -57,14 +58,15 @@ export default function EnhancedTable() {
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
-  
+  const rowsWithStatusFilter = React.useMemo(() => showAll ? rows : rows?.filter(r => r.status === TranslationStatus.UNKNOEN), [rows, showAll]);
+
   const visibleRows = React.useMemo(
     () =>
-      stableSort(rows, getComparator(order, orderBy)).slice(
+      stableSort(rowsWithStatusFilter, getComparator(order, orderBy)).slice(
         page * rowsPerPage,
         page * rowsPerPage + rowsPerPage,
       ),
-    [order, orderBy, page, rowsPerPage, rows],
+    [order, orderBy, page, rowsPerPage, rowsWithStatusFilter],
   );
 
   const isEmpty = React.useMemo(() => visibleRows.length <= 0, [visibleRows]);
@@ -109,7 +111,7 @@ export default function EnhancedTable() {
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={rows.length}
+          count={rowsWithStatusFilter.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}

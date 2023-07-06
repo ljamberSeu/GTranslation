@@ -7,7 +7,6 @@ import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Deposits from '../../Deposits';
-import { TranslationContext } from '../../../data'
 
 const style = {
   position: 'absolute',
@@ -23,7 +22,6 @@ const style = {
 export default function SendReportButton(props) {
   const { displaytext } = props;
   const [open, setOpen] = React.useState(false);
-  const { rows }= React.useContext(TranslationContext);
   return (
     <>
       <Tooltip title="Send review report to Xpay">

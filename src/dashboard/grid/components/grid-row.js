@@ -117,7 +117,7 @@ export default function TranslationRow(props) {
           {row.status  ? 
             <Tooltip title="Revert string status">
               <IconButton onClick={(e) => {
-                setRows((allRows) => allRows?.map(r => {
+                setRows((allRows) => allRows?.map((r) => {
                   if (r.id === row.id) {
                     const newRow = getNewRow(r, { status: TranslationStatus.UNKNOEN });
                     updateSingleTranslation(newRow);
