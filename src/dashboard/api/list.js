@@ -2,8 +2,8 @@
 export async function getDataFromDB() {
   const query = `
       {
-        translations {
-          pending_translation {
+        people {
+          items {
             id,
             original,
             gptTranslation,
@@ -23,6 +23,5 @@ export async function getDataFromDB() {
       body: JSON.stringify({ query: query })
   });
   const result = await response.json();
-  console.table(result.data.people.items);
-  return result.data.people.items;
+  console.table(result?.data);
 };
