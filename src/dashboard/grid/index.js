@@ -58,16 +58,16 @@ export default function EnhancedTable() {
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
   
-  const rowsWithStatusFilter = React.useMemo(() => showAll ? rows : rows?.filter(r => !r.status), [rows, showAll]);
-
   const visibleRows = React.useMemo(
     () =>
-      stableSort(rowsWithStatusFilter, getComparator(order, orderBy)).slice(
+      stableSort(rows, getComparator(order, orderBy)).slice(
         page * rowsPerPage,
         page * rowsPerPage + rowsPerPage,
       ),
-    [order, orderBy, page, rowsPerPage, rowsWithStatusFilter],
+    [order, orderBy, page, rowsPerPage, rows],
   );
+
+  const isEmpty = React.useMemo(() => visibleRows.length <= 0, [visibleRows]);
 
   return (
     <Box sx={{ width: '100%' }}>
@@ -75,7 +75,7 @@ export default function EnhancedTable() {
         <EnhancedTableToolbar numSelected={selected.length} selected={selected} />
         <TableContainer>
           <Table
-            sx={{ minWidth: 750, display: visibleRows.length <= 0 ? 'block' : undefined }}
+            sx={{ minWidth: 750, display: isEmpty || isLoading ? 'block' : undefined }}
             aria-labelledby="tableTitle"
             size={dense ? 'small' : 'medium'}
           >
@@ -89,7 +89,7 @@ export default function EnhancedTable() {
             />
             { isLoading ?
             <LoadingGrid /> :
-            rowsWithStatusFilter.length <= 0 ?
+            isEmpty ?
               <EmptyGrid /> :
               <TableBody>
                 {visibleRows.map((row, index) => <TranslationRow row={row} index={index} selected={selected} setSelected={setSelected} setRows={setRows} />)}
@@ -109,7 +109,7 @@ export default function EnhancedTable() {
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={rowsWithStatusFilter.length}
+          count={rows.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}
@@ -122,7 +122,7 @@ export default function EnhancedTable() {
       />
       <FormControlLabel
         control={<Switch checked={showAll} onChange={(event) => setShowAll(event.target.checked)} />}
-        label="Show all strings"
+        label={ showAll ? "Show pending review strings" : "Show all strings"}
       />
     </Box>
   );

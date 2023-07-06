@@ -6,7 +6,7 @@ import Tooltip from '@mui/material/Tooltip';
 import { alpha } from '@mui/material/styles';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import DoneAllSharpIcon from '@mui/icons-material/DoneAllSharp';
-import { isSelected } from '../utils';
+import { isSelected, getNewRow } from '../utils';
 import PropTypes from 'prop-types';
 import { TranslationContext } from '../../../data'
 import { TranslationStatus } from './constants';
@@ -43,7 +43,7 @@ export default function EnhancedTableToolbar(props) {
           id="tableTitle"
           component="div"
         >
-          Pending review translations
+          Translations
         </Typography>
       )}
 
@@ -54,11 +54,10 @@ export default function EnhancedTableToolbar(props) {
                 setRows((allRows) => allRows?.map(r => {
                   const isItemSelected = isSelected(r.id, selected);
                   if (isItemSelected) {
-                    const newRow = {
-                      ...r,
+                    const newRow = getNewRow(r, {
                       status: TranslationStatus.DONE,
                       finalTranslation: r.gptTranslation,
-                    };
+                    });
                     updateSingleTranslation(newRow);
                     return  newRow;
                   }

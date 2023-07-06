@@ -5,6 +5,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { TranslationStatus } from './constants';
 import { updateSingleTranslation } from '../../../api/list'
+import { getNewRow } from '../utils';
 
 export default function TranslationForm({ row, setOpen, setRows }) {
   const [finalTranslation, setFinalTranslation] = React.useState(row?.finalTranslation || row?.gptTranslation);
@@ -67,11 +68,10 @@ export default function TranslationForm({ row, setOpen, setRows }) {
               setOpen(false);
               setRows((allRows) => allRows?.map(r => {
                 if (r.id === row.id) {
-                  const newRow = {
-                    ...r,
+                  const newRow = getNewRow(r, {
                     status: finalTranslation ? TranslationStatus.DONE : TranslationStatus.UNKNOEN,
                     finalTranslation: finalTranslation,
-                  };
+                  });
                   updateSingleTranslation(newRow);
                   return newRow;
                 }
@@ -84,11 +84,10 @@ export default function TranslationForm({ row, setOpen, setRows }) {
               setOpen(false);
               setRows((allRows) => allRows?.map(r => {
                 if (r.id === row.id) {
-                  const newRow = {
-                    ...r,
+                  const newRow = getNewRow(r, {
                     status: TranslationStatus.REJECTED,
                     finalTranslation: finalTranslation,
-                  };
+                  });
                   updateSingleTranslation(newRow);
                   return newRow;
                 }

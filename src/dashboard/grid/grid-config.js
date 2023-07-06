@@ -33,7 +33,7 @@ export const headCells = [
     numeric: true,
     disablePadding: false,
     sortabled: true,
-    label: 'Reviewer',
+    label: 'Lasted reviewer',
   },
   {
     id: 'finalTranslation',

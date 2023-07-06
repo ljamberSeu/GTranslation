@@ -25,7 +25,7 @@ export const getDataFromDBStatus = async (status) => callFuctionWithErrorHandle(
 
 export const updateSingleTranslation = async (row) => callFuctionWithErrorHandle(async () => {
   const id = row.id;
-  const data = { ...row, reviewer: 'danluo@microsoft.com' };
+  const data = { ...row };
   delete data.id;
 
   const endpoint = '/data-api/rest/Translation/id';

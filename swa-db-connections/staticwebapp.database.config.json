@@ -30,7 +30,7 @@
         "source": "pending_translation",
         "permissions": [
           {
-            "actions": ["read", "update"],
+            "actions": ["read", "update", "create"],
             "role": "anonymous"
           }
         ]

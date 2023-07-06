@@ -7,7 +7,7 @@ import Tooltip from '@mui/material/Tooltip';
 import CheckSharpIcon from '@mui/icons-material/CheckSharp';
 import Chip from '@mui/material/Chip';
 import SettingsBackupRestoreIcon from '@mui/icons-material/SettingsBackupRestore';
-import { isSelected } from '../utils';
+import { isSelected, getNewRow } from '../utils';
 import CreateIcon from '@mui/icons-material/Create';
 import Box from '@mui/material/Box';
 import TranslationForm from './translation-edit-form';
@@ -119,10 +119,7 @@ export default function TranslationRow(props) {
               <IconButton onClick={(e) => {
                 setRows((allRows) => allRows?.map(r => {
                   if (r.id === row.id) {
-                    const newRow = {
-                      ...r,
-                      status: TranslationStatus.UNKNOEN,
-                    };
+                    const newRow = getNewRow(r, { status: TranslationStatus.UNKNOEN });
                     updateSingleTranslation(newRow);
                     return newRow;
                   }
@@ -137,11 +134,10 @@ export default function TranslationRow(props) {
                 <IconButton onClick={(e) => {
                   setRows((allRows) => allRows?.map(r => {
                     if (r.id === row.id) {
-                      const newRow = {
-                        ...r,
+                      const newRow = getNewRow(r, {
                         status: TranslationStatus.DONE,
                         finalTranslation: r.finalTranslation || r.gptTranslation,
-                      };
+                      });
                       updateSingleTranslation(newRow);
                       return newRow;
                     }

@@ -14,9 +14,13 @@ import List from '@mui/material/List';
 import Collapse from '@mui/material/Collapse';
 import StarIcon from '@mui/icons-material/Star';
 import Badge from '@mui/material/Badge';
+import { TranslationContext } from '../data';
+import { TranslationStatus } from './grid/components/constants';
 
 export const MainListItems = () => {
   const [open, setOpen] = React.useState(true);
+  const {rows}= React.useContext(TranslationContext);
+  const rowsWithStatusFilter = React.useMemo(() => rows?.filter(r => r.status === TranslationStatus.UNKNOEN), [rows]);
 
   const handleClick = () => {
     setOpen(!open);
@@ -36,7 +40,7 @@ export const MainListItems = () => {
           <ListItemIcon>
             <StarIcon color='warning'/>
           </ListItemIcon>
-          <Badge color="error" badgeContent={10}>
+          <Badge color="error" badgeContent={rowsWithStatusFilter.length}>
             <ListItemText primary="Xpay" sx={{width:"70px"}}/>
           </Badge>
         </ListItemButton>
