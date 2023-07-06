@@ -1,17 +1,4 @@
 
-export function createData(name, original, gptTranslation, devComment, stringOwner, reviewer, reviewComment) {
-  return {
-    name: name,
-    original,
-    gptTranslation,
-    devComment,
-    stringOwner,
-    reviewer,
-    reviewComment,
-  };
-}
-
-
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
     return -1;

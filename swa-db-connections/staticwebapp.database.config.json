@@ -30,11 +30,11 @@
     },
     "entities": {
       "Person": {
-        "source": "dbo.MyTestPersonTable",
+        "source": "pending_translation",
         "permissions": [
           {
             "actions": ["create", "read", "update", "delete"],
-            "role": "anonymous"
+            "role": "admin"
           }
         ]
       }
