@@ -17,17 +17,18 @@ import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import { mainListItems, secondaryListItems } from './listItems';
+import Avatar from '@mui/material/Avatar';
+import { MainListItems, secondaryListItems } from './listItems';
 import Chart from './Chart';
 import Deposits from './Deposits';
-import Orders from './Orders';
+import Orders from './grid';
 
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
+      <Link color="inherit" href="https://bing.com/">
+        Xpay Website
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -137,13 +138,14 @@ export default function Dashboard() {
               px: [1],
             }}
           >
+            <Avatar alt="Jing Li" src="avator.png" sx={{ margin: 'auto' }}/>
             <IconButton onClick={toggleDrawer}>
               <ChevronLeftIcon />
             </IconButton>
           </Toolbar>
           <Divider />
           <List component="nav">
-            {mainListItems}
+            <MainListItems />
             <Divider sx={{ my: 1 }} />
             {secondaryListItems}
           </List>
@@ -161,9 +163,12 @@ export default function Dashboard() {
           }}
         >
           <Toolbar />
-          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+          <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
-              {/* Chart */}
+              <Grid item xs={12}>
+                <Orders />
+              </Grid>
+
               <Grid item xs={12} md={8} lg={9}>
                 <Paper
                   sx={{
@@ -176,7 +181,7 @@ export default function Dashboard() {
                   <Chart />
                 </Paper>
               </Grid>
-              {/* Recent Deposits */}
+
               <Grid item xs={12} md={4} lg={3}>
                 <Paper
                   sx={{
@@ -187,12 +192,6 @@ export default function Dashboard() {
                   }}
                 >
                   <Deposits />
-                </Paper>
-              </Grid>
-              {/* Recent Orders */}
-              <Grid item xs={12}>
-                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                  <Orders />
                 </Paper>
               </Grid>
             </Grid>

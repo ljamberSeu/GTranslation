@@ -2,22 +2,54 @@ import * as React from 'react';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import ListSubheader from '@mui/material/ListSubheader';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 import PeopleIcon from '@mui/icons-material/People';
 import BarChartIcon from '@mui/icons-material/BarChart';
-import LayersIcon from '@mui/icons-material/Layers';
 import AssignmentIcon from '@mui/icons-material/Assignment';
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import ExpandMore from '@mui/icons-material/ExpandMore';
+import StarBorder from '@mui/icons-material/StarBorder';
+import List from '@mui/material/List';
+import Collapse from '@mui/material/Collapse';
+import StarIcon from '@mui/icons-material/Star';
+import Badge from '@mui/material/Badge';
 
-export const mainListItems = (
+export const MainListItems = () => {
+  const [open, setOpen] = React.useState(true);
+
+  const handleClick = () => {
+    setOpen(!open);
+  };
+  return (
   <React.Fragment>
-    <ListItemButton>
+    <ListItemButton onClick={handleClick}>
       <ListItemIcon>
         <DashboardIcon />
       </ListItemIcon>
       <ListItemText primary="Dashboard" />
+      {open ? <ExpandLess /> : <ExpandMore />}
     </ListItemButton>
+    <Collapse in={open} timeout="auto" unmountOnExit>
+      <List component="div" disablePadding>
+        <ListItemButton sx={{ pl: 4 }}>
+          <ListItemIcon>
+            <StarIcon color='warning'/>
+          </ListItemIcon>
+          <Badge color="error" badgeContent={10}>
+            <ListItemText primary="Xpay" sx={{width:"70px"}}/>
+          </Badge>
+        </ListItemButton>
+       
+        <ListItemButton sx={{ pl: 4 }}>
+          <ListItemIcon>
+            <StarBorder />
+          </ListItemIcon>
+          <ListItemText primary="Ads" />
+        </ListItemButton>
+      </List>
+    </Collapse>
+
     <ListItemButton>
       <ListItemIcon>
         <ManageSearchIcon />
@@ -38,6 +70,7 @@ export const mainListItems = (
     </ListItemButton>
   </React.Fragment>
 );
+  };
 
 export const secondaryListItems = (
   <React.Fragment>
