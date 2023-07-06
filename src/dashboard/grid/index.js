@@ -15,7 +15,7 @@ import LoadingGrid from './components/loading-grid';
 import EnhancedTableHead from './components/grid-head';
 import EnhancedTableToolbar from './components/grid-toolbar';
 import TranslationRow from './components/grid-row';
-import { getDataFromDBStatus } from '../api/list'
+import { TranslationContext } from '../../data'
 
 export default function EnhancedTable() {
   const [order, setOrder] = React.useState('asc');
@@ -24,18 +24,8 @@ export default function EnhancedTable() {
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [rows, setRows] = React.useState([]);
-  const [showAll, setShowAll] = React.useState(true);
-  const [isLoading, setIsLoading] = React.useState(false);
-
-  React.useEffect(() => {
-    setIsLoading(true);
-    getDataFromDBStatus(0)?.then((data) => {
-      setRows(data || []);
-      setIsLoading(false);
-    });
-  }, []);
-
+  const {rows, setRows,isLoading, showAll, setShowAll}= React.useContext(TranslationContext);
+  
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
@@ -82,7 +72,7 @@ export default function EnhancedTable() {
   return (
     <Box sx={{ width: '100%' }}>
       <Paper sx={{ width: '100%', mb: 2 }}>
-        <EnhancedTableToolbar numSelected={selected.length} selected={selected} setRows={setRows} rows={rows}/>
+        <EnhancedTableToolbar numSelected={selected.length} selected={selected} />
         <TableContainer>
           <Table
             sx={{ minWidth: 750, display: visibleRows.length <= 0 ? 'block' : undefined }}
@@ -100,7 +90,7 @@ export default function EnhancedTable() {
             { isLoading ?
             <LoadingGrid /> :
             rowsWithStatusFilter.length <= 0 ?
-              <EmptyGrid rows={rows}/> :
+              <EmptyGrid /> :
               <TableBody>
                 {visibleRows.map((row, index) => <TranslationRow row={row} index={index} selected={selected} setSelected={setSelected} setRows={setRows} />)}
                 {emptyRows > 0 && (

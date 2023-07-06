@@ -13,6 +13,10 @@ import Box from '@mui/material/Box';
 import TranslationForm from './translation-edit-form';
 import Modal from '@mui/material/Modal';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
+import { TranslationContext } from '../../../data'
+import { TranslationStatus } from './constants';
+import { updateSingleTranslation } from '../../../api/list'
+
 const style = {
   position: 'absolute',
   top: '50%',
@@ -26,9 +30,9 @@ const style = {
 
 const RowStatus = ({ row }) => {
   switch (row.status) {
-    case 'finished':
+    case TranslationStatus.DONE:
       return <Chip icon={<CheckSharpIcon />} label="Done" variant="outlined" color='success'/>;
-    case 'NeedFeedback':
+    case TranslationStatus.REJECTED:
       return <Chip icon={<WarningAmberIcon />} label="Rejected" variant="outlined" color='warning'/>;
     default:
       return '-';
@@ -36,7 +40,8 @@ const RowStatus = ({ row }) => {
 };
 
 export default function TranslationRow(props) {
-  const { row, index, selected, setSelected, setRows } = props;
+  const { row, index, selected, setSelected } = props;
+  const { setRows }= React.useContext(TranslationContext);
   const isItemSelected = isSelected(row.id, selected);
   const labelId = `enhanced-table-checkbox-${index}`;
   const [open, setOpen] = React.useState(false);
@@ -114,10 +119,12 @@ export default function TranslationRow(props) {
               <IconButton onClick={(e) => {
                 setRows((allRows) => allRows?.map(r => {
                   if (r.id === row.id) {
-                    return {
+                    const newRow = {
                       ...r,
-                      status: undefined,
-                    }
+                      status: TranslationStatus.UNKNOEN,
+                    };
+                    updateSingleTranslation(newRow);
+                    return newRow;
                   }
                   return r;
                 }));
@@ -130,11 +137,13 @@ export default function TranslationRow(props) {
                 <IconButton onClick={(e) => {
                   setRows((allRows) => allRows?.map(r => {
                     if (r.id === row.id) {
-                      return {
+                      const newRow = {
                         ...r,
-                        status: 'finished',
+                        status: TranslationStatus.DONE,
                         finalTranslation: r.finalTranslation || r.gptTranslation,
-                      }
+                      };
+                      updateSingleTranslation(newRow);
+                      return newRow;
                     }
                     return r;
                   }));

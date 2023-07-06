@@ -1,3 +1,4 @@
+import * as React from 'react';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
@@ -7,9 +8,13 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import DoneAllSharpIcon from '@mui/icons-material/DoneAllSharp';
 import { isSelected } from '../utils';
 import PropTypes from 'prop-types';
-import SendReportButton from './send-report-button';
+import { TranslationContext } from '../../../data'
+import { TranslationStatus } from './constants';
+import { updateSingleTranslation } from '../../../api/list'
+
 export default function EnhancedTableToolbar(props) {
-  const { numSelected, selected, setRows, rows } = props;
+  const { numSelected, selected } = props;
+  const { setRows }= React.useContext(TranslationContext);
 
   return (
     <Toolbar
@@ -49,11 +54,13 @@ export default function EnhancedTableToolbar(props) {
                 setRows((allRows) => allRows?.map(r => {
                   const isItemSelected = isSelected(r.id, selected);
                   if (isItemSelected) {
-                    return {
+                    const newRow = {
                       ...r,
-                      status: 'finished',
+                      status: TranslationStatus.DONE,
                       finalTranslation: r.gptTranslation,
-                    }
+                    };
+                    updateSingleTranslation(newRow);
+                    return  newRow;
                   }
                   return r;
                 }));
@@ -61,7 +68,6 @@ export default function EnhancedTableToolbar(props) {
               <DoneAllSharpIcon color='primary'/>
             </IconButton>
           </Tooltip>
-          <SendReportButton rows={rows?.filter(r => isSelected(r.id, selected))}/>
         </div>
       ) : (
         <Tooltip title="Filter list">

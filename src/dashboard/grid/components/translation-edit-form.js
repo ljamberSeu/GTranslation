@@ -3,10 +3,12 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import { TranslationStatus } from './constants';
+import { updateSingleTranslation } from '../../../api/list'
 
 export default function TranslationForm({ row, setOpen, setRows }) {
   const [finalTranslation, setFinalTranslation] = React.useState(row?.finalTranslation || row?.gptTranslation);
-  const [reviewComment, setReviewComment] = React.useState("");
+
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -58,17 +60,6 @@ export default function TranslationForm({ row, setOpen, setRows }) {
             onChange={(e) => setFinalTranslation(e.target.value)}
           />
         </Grid>
-        <Grid item xs={12}>
-          <TextField
-            id="review comment"
-            name="review comment"
-            label="review comment"
-            fullWidth
-            variant="standard"
-            value={reviewComment}
-            onChange={(e) => setReviewComment(e.target.value)}
-          />
-        </Grid>
         <div style={{display: 'flex', gap: '10px', padding: '20px', float:'left'}}>
           <Button
             variant="contained"
@@ -76,16 +67,38 @@ export default function TranslationForm({ row, setOpen, setRows }) {
               setOpen(false);
               setRows((allRows) => allRows?.map(r => {
                 if (r.id === row.id) {
-                  return {
+                  const newRow = {
                     ...r,
-                    status: reviewComment ? 'NeedFeedback' : finalTranslation ? 'finished' : undefined,
+                    status: finalTranslation ? TranslationStatus.DONE : TranslationStatus.UNKNOEN,
                     finalTranslation: finalTranslation,
-                    reviewComment: reviewComment,
-                  }
+                  };
+                  updateSingleTranslation(newRow);
+                  return newRow;
                 }
                 return r;
               }));
-            }}> Save </Button>
+            }}> Accepcted </Button>
+          <Button
+            variant="contained"
+            onClick={() => {
+              setOpen(false);
+              setRows((allRows) => allRows?.map(r => {
+                if (r.id === row.id) {
+                  const newRow = {
+                    ...r,
+                    status: TranslationStatus.REJECTED,
+                    finalTranslation: finalTranslation,
+                  };
+                  updateSingleTranslation(newRow);
+                  return newRow;
+                }
+                return r;
+              }));
+            }}
+            color="error"
+          >
+              Rejected
+          </Button>
           <Button variant="contained" onClick={() => setOpen(false)} color="primary"> Cancel </Button>
         </div>
       </Grid>

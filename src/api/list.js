@@ -1,25 +1,32 @@
 
-export async function getDataFromDB() {
+const callFuctionWithErrorHandle = async (apiCallFunction) => {
+  try {
+    return await apiCallFunction();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getDataFromDB = async () => callFuctionWithErrorHandle(async () => {
   let endpoint = '/data-api/rest/Translation';
   let response = await fetch(endpoint);
   let data = await response.json();
   console.table(data.value);
   return data.value;
-};
+});
 
-export async function getDataFromDBStatus(status) {
+export const getDataFromDBStatus = async (status) => callFuctionWithErrorHandle(async () => {
   const endpoint = `/data-api/rest/Translation`;
   const response = await fetch(`${endpoint}?$filter=status eq ${status}`);
   const result = await response.json();
   console.table(result.value);
   return result.value;
-}
+});
 
-export async function updateSingleTranslation({ id, status }) {
-  const data = {
-    status,
-    reviewer: "danluo@nvidia.com",
-  };
+export const updateSingleTranslation = async (row) => callFuctionWithErrorHandle(async () => {
+  const id = row.id;
+  const data = { ...row, reviewer: 'danluo@microsoft.com' };
+  delete data.id;
 
   const endpoint = '/data-api/rest/Translation/id';
   const response = await fetch(`${endpoint}/${id}`, {
@@ -29,7 +36,7 @@ export async function updateSingleTranslation({ id, status }) {
   });
   const result = await response.json();
   console.table(result.value);
-}
+});
 
 export async function createDate() {
   const data = {

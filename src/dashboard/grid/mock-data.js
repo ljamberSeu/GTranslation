@@ -1,4 +1,4 @@
-export function createData(id, original, gptTranslation, devComment, stringOwner, reviewer, reviewComment) {
+export function createData(id, original, gptTranslation, devComment, stringOwner, reviewer) {
   return {
     id,
     original,
@@ -6,7 +6,6 @@ export function createData(id, original, gptTranslation, devComment, stringOwner
     devComment,
     stringOwner,
     reviewer,
-    reviewComment,
   };
 }
 export const initialRows = [
