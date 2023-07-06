@@ -124,7 +124,7 @@ export default function EnhancedTable() {
       />
       <FormControlLabel
         control={<Switch checked={showAll} onChange={(event) => setShowAll(event.target.checked)} />}
-        label={ showAll ? "Show pending review strings" : "Show all strings"}
+        label={ "Show all strings"}
       />
     </Box>
   );
