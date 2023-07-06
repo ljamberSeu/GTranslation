@@ -16,10 +16,10 @@ export async function getDataFromDB() {
         }
       }`;
 
-  const endpoint = "/data-api/graphql";
+  const endpoint = "/data-api/graphql/Person";
   const response = await fetch(endpoint, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json","X-MS-API-ROLE": "admin" },
       body: JSON.stringify({ query: query })
   });
   const result = await response.json();
