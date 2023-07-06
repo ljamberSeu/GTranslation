@@ -3,7 +3,6 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import { alpha } from '@mui/material/styles';
-import SendSharpIcon from '@mui/icons-material/SendSharp';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import DoneAllSharpIcon from '@mui/icons-material/DoneAllSharp';
 import { isSelected } from '../utils';

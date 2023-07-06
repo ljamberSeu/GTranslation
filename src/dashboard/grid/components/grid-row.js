@@ -10,9 +10,6 @@ import SettingsBackupRestoreIcon from '@mui/icons-material/SettingsBackupRestore
 import { isSelected } from '../utils';
 import CreateIcon from '@mui/icons-material/Create';
 import Box from '@mui/material/Box';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import Typography from '@mui/material/Typography';
 import TranslationForm from './translation-edit-form';
 import Modal from '@mui/material/Modal';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';

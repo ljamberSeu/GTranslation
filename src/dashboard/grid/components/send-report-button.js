@@ -5,7 +5,6 @@ import Tooltip from '@mui/material/Tooltip';
 import SendSharpIcon from '@mui/icons-material/SendSharp';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Deposits from '../../Deposits';
 
@@ -21,7 +20,7 @@ const style = {
 };
 
 export default function SendReportButton(props) {
-  const { rows, displaytext } = props;
+  const { displaytext } = props;
   const [open, setOpen] = React.useState(false);
 
   return (
