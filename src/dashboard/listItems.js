@@ -17,7 +17,7 @@ import Badge from '@mui/material/Badge';
 import { TranslationContext } from '../data';
 import { TranslationStatus } from './grid/components/constants';
 
-export const MainListItems = () => {
+export const MainListItems = ({isDrawerOpen}) => {
   const [open, setOpen] = React.useState(true);
   const {rows}= React.useContext(TranslationContext);
   const rowsWithStatusFilter = React.useMemo(() => rows?.filter(r => r.status === TranslationStatus.UNKNOEN), [rows]);
@@ -25,6 +25,7 @@ export const MainListItems = () => {
   const handleClick = () => {
     setOpen(!open);
   };
+  const isSecondItemOpen = isDrawerOpen && open;
   return (
   <React.Fragment>
     <ListItemButton onClick={handleClick}>
@@ -32,9 +33,9 @@ export const MainListItems = () => {
         <DashboardIcon />
       </ListItemIcon>
       <ListItemText primary="Dashboard" />
-      {open ? <ExpandLess /> : <ExpandMore />}
+      {isSecondItemOpen ? <ExpandLess /> : <ExpandMore />}
     </ListItemButton>
-    <Collapse in={open} timeout="auto" unmountOnExit>
+    <Collapse in={isSecondItemOpen} timeout="auto" unmountOnExit>
       <List component="div" disablePadding>
         <ListItemButton sx={{ pl: 4 }}>
           <ListItemIcon>

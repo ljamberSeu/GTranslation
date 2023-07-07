@@ -147,7 +147,7 @@ export default function Dashboard() {
           </Toolbar>
           <Divider />
           <List component="nav">
-            <MainListItems />
+            <MainListItems isDrawerOpen={open}/>
             <Divider sx={{ my: 1 }} />
             {secondaryListItems}
           </List>

@@ -6,6 +6,7 @@ import Button from '@mui/material/Button';
 import { TranslationStatus } from './constants';
 import { updateSingleTranslation } from '../../../api/list'
 import { getNewRow } from '../utils';
+import { DemoItem } from '@mui/x-date-pickers/internals/demo';
 
 export default function TranslationForm({ row, setOpen, setRows }) {
   const [finalTranslation, setFinalTranslation] = React.useState(row?.finalTranslation || row?.gptTranslation);
@@ -17,37 +18,25 @@ export default function TranslationForm({ row, setOpen, setRows }) {
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <TextField
-            required
-            id="original"
-            name="original string"
-            label="original string"
-            fullWidth
-            value={row?.original}
-            disabled
-          />
+          <DemoItem label="Original string">
+            <Typography variant="body1" gutterBottom>
+              {row?.original}
+            </Typography>
+          </DemoItem>
         </Grid>
         <Grid item xs={12}>
-          <TextField
-            required
-            id="gptTranslation"
-            name="gptTranslation"
-            label="GPT Translation"
-            fullWidth
-            value={row?.gptTranslation}
-            disabled
-          />
+          <DemoItem label="GPT Translation">
+            <Typography variant="body1" gutterBottom>
+              {row?.gptTranslation}
+            </Typography>
+          </DemoItem>
         </Grid>
         <Grid item xs={12}>
-          <TextField
-            required
-            id="Dev comment"
-            name="devComment"
-            label="Dev comment"
-            fullWidth
-            value={row?.devComment}
-            disabled
-          />
+          <DemoItem label="Dev comment">
+            <Typography variant="body1" gutterBottom>
+              {row?.devComment}
+            </Typography>
+          </DemoItem>
         </Grid>
         <Grid item xs={12}>
           <TextField
@@ -61,25 +50,30 @@ export default function TranslationForm({ row, setOpen, setRows }) {
             onChange={(e) => setFinalTranslation(e.target.value)}
           />
         </Grid>
-        <div style={{display: 'flex', gap: '10px', padding: '20px', float:'left'}}>
+        <div style={{padding: '20px', float:'left', width: '100%',display: 'flex'}}>
+          <div style={{display: 'flex', gap: '10px', float:'left'}}>
+            <Button
+              variant="contained"
+              onClick={() => {
+                setOpen(false);
+                setRows((allRows) => allRows?.map(r => {
+                  if (r.id === row.id) {
+                    const newRow = getNewRow(r, {
+                      status: finalTranslation ? TranslationStatus.DONE : TranslationStatus.UNKNOEN,
+                      finalTranslation: finalTranslation,
+                    });
+                    updateSingleTranslation(newRow);
+                    return newRow;
+                  }
+                  return r;
+                }));
+              }}> Accepcted </Button>
+            <Button variant="contained" onClick={() => setOpen(false)} color="primary"> Cancel </Button>
+          </div>
           <Button
             variant="contained"
-            onClick={() => {
-              setOpen(false);
-              setRows((allRows) => allRows?.map(r => {
-                if (r.id === row.id) {
-                  const newRow = getNewRow(r, {
-                    status: finalTranslation ? TranslationStatus.DONE : TranslationStatus.UNKNOEN,
-                    finalTranslation: finalTranslation,
-                  });
-                  updateSingleTranslation(newRow);
-                  return newRow;
-                }
-                return r;
-              }));
-            }}> Accepcted </Button>
-          <Button
-            variant="contained"
+            sx={{marginInlineStart: 'auto'}}
+            title="Reject this translation as didn't have enough information to translate it correctly"
             onClick={() => {
               setOpen(false);
               setRows((allRows) => allRows?.map(r => {
@@ -98,7 +92,6 @@ export default function TranslationForm({ row, setOpen, setRows }) {
           >
               Rejected
           </Button>
-          <Button variant="contained" onClick={() => setOpen(false)} color="primary"> Cancel </Button>
         </div>
       </Grid>
     </React.Fragment>
