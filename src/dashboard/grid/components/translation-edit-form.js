@@ -48,6 +48,7 @@ export default function TranslationForm({ row, setOpen, setRows }) {
             value={finalTranslation}
             variant='standard'
             onChange={(e) => setFinalTranslation(e.target.value)}
+            autoFocus
           />
         </Grid>
         <div style={{padding: '20px', float:'left', width: '100%',display: 'flex'}}>
