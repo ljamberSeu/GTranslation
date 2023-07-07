@@ -1,4 +1,5 @@
 # local development
+`yarn`
 
 open cmd and run:
 `npm install -g @azure/static-web-apps-cli`
@@ -7,4 +8,5 @@ open cmd and run:
 
 start local dev:
 `yarn run build`
+
 `swa start ./build --data-api-location swa-db-connections`
