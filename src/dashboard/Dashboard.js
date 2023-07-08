@@ -18,9 +18,9 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import Avatar from '@mui/material/Avatar';
-import { MainListItems, secondaryListItems } from './listItems';
-import Chart from './Chart';
-import Deposits from './Deposits';
+import { MainListItems, secondaryListItems } from './list-items';
+import Chart from './chart';
+import Deposits from './deposits';
 import Orders from './grid';
 import DatePickerComponent from './date-picker';
 
