@@ -1,6 +1,6 @@
 import * as React from 'react';
 import dayjs from 'dayjs';
-import Dashboard from './dashboard/Dashboard';
+import Dashboard from './dashboard/dashboard';
 import { TranslationContext, GridContext } from './data';
 import './App.css';
 import { TranslationProject } from './dashboard/grid/components/constants';

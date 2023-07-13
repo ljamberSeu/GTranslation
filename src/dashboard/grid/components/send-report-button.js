@@ -6,7 +6,7 @@ import SendSharpIcon from '@mui/icons-material/SendSharp';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
-import Deposits from '../../Deposits';
+import Deposits from '../../deposits';
 
 const style = {
   position: 'absolute',
