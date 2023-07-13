@@ -9,7 +9,6 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
-import LinearProgress from '@mui/material/LinearProgress';
 
 import { getComparator, stableSort } from './utils';
 import EmptyGrid from './components/empty-grid';
@@ -19,6 +18,7 @@ import EnhancedTableToolbar from './components/grid-toolbar';
 import TranslationRow from './components/grid-row';
 import { TranslationContext } from '../../data'
 import { TranslationStatus } from './components/constants';
+import APIStatus from '../components/api/api-status';
 
 export default function EnhancedTable() {
   const [order, setOrder] = React.useState('asc');
@@ -27,7 +27,7 @@ export default function EnhancedTable() {
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const {rows, setRows, showAll, setShowAll, apiIsprogressing}= React.useContext(TranslationContext);
+  const {rows, setRows, showAll, setShowAll, query}= React.useContext(TranslationContext);
   
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -77,7 +77,7 @@ export default function EnhancedTable() {
     <Box sx={{ width: '100%' }}>
       <Paper sx={{ width: '100%', mb: 2 }}>
         <EnhancedTableToolbar numSelected={selected.length} selected={selected} />
-        {apiIsprogressing && <LinearProgress /> }
+        <APIStatus />
         <TableContainer>
           <Table
             sx={{ minWidth: 750, display: isEmpty  ? 'block' : undefined }}
@@ -92,7 +92,7 @@ export default function EnhancedTable() {
               onRequestSort={handleRequestSort}
               rowCount={rows.length}
             />
-            { isEmpty && apiIsprogressing ?
+            { isEmpty && query?.IsAPIcallInProgress?.() ?
             <LoadingGrid /> :
             isEmpty ?
               <EmptyGrid /> :                
