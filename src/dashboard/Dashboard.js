@@ -22,7 +22,7 @@ import { MainListItems, secondaryListItems } from './list-items';
 import Chart from './chart';
 import Deposits from './deposits';
 import Orders from './grid';
-import DatePickerComponent from './date-picker';
+import DatePickerComponent from './components/date-picker';
 
 function Copyright(props) {
   return (

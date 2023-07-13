@@ -34,6 +34,8 @@ const RowStatus = ({ row }) => {
       return <Chip icon={<CheckSharpIcon />} label="Done" variant="outlined" color='success'/>;
     case TranslationStatus.REJECTED:
       return <Chip icon={<WarningAmberIcon />} label="Rejected" variant="outlined" color='warning'/>;
+    case TranslationStatus.SENDEMAIL:
+      return <Chip icon={<WarningAmberIcon />} label="Email sended" variant="outlined" color='warning'/>;
     default:
       return '-';
   }
