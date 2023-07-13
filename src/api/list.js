@@ -11,13 +11,14 @@ export const getDataFromDB = async () => callFuctionWithErrorHandle(async () => 
   let endpoint = '/data-api/rest/Translation';
   let response = await fetch(endpoint);
   let data = await response.json();
-  console.table(data.value);
   return data.value;
 });
 
 export const getDataFromDBStatus = async ({
   status,
   startDate,
+  project,
+  after,
 }) => callFuctionWithErrorHandle(async () => {
   const endpoint = `/data-api/rest/Translation`;
   const urlExtend = [];
@@ -27,10 +28,12 @@ export const getDataFromDBStatus = async ({
   if (startDate) {
     urlExtend.push(`timestamp ge ${startDate.$d.toISOString()}`);
   }
-  const response = await fetch(`${endpoint}?$filter=${urlExtend?.join(' and ')}`);
+  if (startDate) {
+    urlExtend.push(`project eq ${project}`);
+  }
+  const response = await fetch(`${endpoint}?$filter=${urlExtend?.join(' and ')}${ after ? `&$after=${after}` : '' }`);
   const result = await response.json();
-  console.table(result.value);
-  return result.value;
+  return result;
 });
 
 export const updateSingleTranslation = async (row) => callFuctionWithErrorHandle(async () => {

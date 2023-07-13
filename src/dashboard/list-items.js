@@ -15,11 +15,16 @@ import Collapse from '@mui/material/Collapse';
 import StarIcon from '@mui/icons-material/Star';
 import Badge from '@mui/material/Badge';
 import { TranslationContext } from '../data';
-import { TranslationStatus } from './grid/components/constants';
+import { TranslationStatus, TranslationProject } from './grid/components/constants';
+
+const TranslationProjectNames = {
+  [TranslationProject.XPAY]: 'Xpay',
+  [TranslationProject.ADS]: 'Ads',
+};
 
 export const MainListItems = ({isDrawerOpen}) => {
   const [open, setOpen] = React.useState(true);
-  const {rows}= React.useContext(TranslationContext);
+  const { rows, project, setProject }= React.useContext(TranslationContext);
   const rowsWithStatusFilter = React.useMemo(() => rows?.filter(r => r.status === TranslationStatus.UNKNOEN), [rows]);
 
   const handleClick = () => {
@@ -37,21 +42,24 @@ export const MainListItems = ({isDrawerOpen}) => {
     </ListItemButton>
     <Collapse in={isSecondItemOpen} timeout="auto" unmountOnExit>
       <List component="div" disablePadding>
-        <ListItemButton sx={{ pl: 4 }}>
-          <ListItemIcon>
-            <StarIcon color='warning'/>
-          </ListItemIcon>
-          <Badge color="error" badgeContent={rowsWithStatusFilter.length}>
-            <ListItemText primary="Xpay" sx={{width:"70px"}}/>
-          </Badge>
-        </ListItemButton>
-       
-        <ListItemButton sx={{ pl: 4 }}>
-          <ListItemIcon>
-            <StarBorder />
-          </ListItemIcon>
-          <ListItemText primary="Ads" />
-        </ListItemButton>
+        {
+          Object.keys(TranslationProject).map(key => {
+            const translationProject = TranslationProject[key];
+            return (
+            <ListItemButton sx={{ pl: 4 }} onClick={() => setProject(translationProject)} key={translationProject}>
+              <ListItemIcon>
+                <StarIcon color='warning'/>
+              </ListItemIcon>
+              {
+                project === translationProject ?
+                <Badge color="error" badgeContent={rowsWithStatusFilter.length}>
+                  <ListItemText primary={TranslationProjectNames[translationProject]} sx={{width:"70px"}}/>
+                </Badge> :
+                <ListItemText primary={TranslationProjectNames[translationProject]} sx={{width:"70px"}}/>
+              }
+            </ListItemButton>);
+          })
+        }
       </List>
     </Collapse>
 

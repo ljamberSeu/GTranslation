@@ -3,7 +3,7 @@ import * as React from 'react';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers';
-import { GridContext } from '../data';
+import { GridContext } from '../../data';
 
 export default function DatePickerComponent() {
   const {startDate, setStartDate} = React.useContext(GridContext);

@@ -4,3 +4,8 @@ export const TranslationStatus = {
   REJECTED: 2,
   SENDEMAIL: 3,
 };
+
+export const TranslationProject = {
+  XPAY: "'xpay'",
+  ADS: "'ads'",
+};

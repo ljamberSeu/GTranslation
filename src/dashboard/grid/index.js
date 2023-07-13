@@ -9,6 +9,8 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
+import LinearProgress from '@mui/material/LinearProgress';
+
 import { getComparator, stableSort } from './utils';
 import EmptyGrid from './components/empty-grid';
 import LoadingGrid from './components/loading-grid';
@@ -25,7 +27,7 @@ export default function EnhancedTable() {
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const {rows, setRows,isLoading, showAll, setShowAll}= React.useContext(TranslationContext);
+  const {rows, setRows, showAll, setShowAll, apiIsprogressing}= React.useContext(TranslationContext);
   
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -75,9 +77,10 @@ export default function EnhancedTable() {
     <Box sx={{ width: '100%' }}>
       <Paper sx={{ width: '100%', mb: 2 }}>
         <EnhancedTableToolbar numSelected={selected.length} selected={selected} />
+        {apiIsprogressing && <LinearProgress /> }
         <TableContainer>
           <Table
-            sx={{ minWidth: 750, display: isEmpty || isLoading ? 'block' : undefined }}
+            sx={{ minWidth: 750, display: isEmpty  ? 'block' : undefined }}
             aria-labelledby="tableTitle"
             size={dense ? 'small' : 'medium'}
           >
@@ -89,10 +92,10 @@ export default function EnhancedTable() {
               onRequestSort={handleRequestSort}
               rowCount={rows.length}
             />
-            { isLoading ?
+            { isEmpty && apiIsprogressing ?
             <LoadingGrid /> :
             isEmpty ?
-              <EmptyGrid /> :
+              <EmptyGrid /> :                
               <TableBody>
                 {visibleRows.map((row, index) => <TranslationRow row={row} index={index} selected={selected} setSelected={setSelected} setRows={setRows} />)}
                 {emptyRows > 0 && (
