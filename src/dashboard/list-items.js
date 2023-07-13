@@ -9,7 +9,6 @@ import BarChartIcon from '@mui/icons-material/BarChart';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
-import StarBorder from '@mui/icons-material/StarBorder';
 import List from '@mui/material/List';
 import Collapse from '@mui/material/Collapse';
 import StarIcon from '@mui/icons-material/Star';
@@ -22,11 +21,28 @@ const TranslationProjectNames = {
   [TranslationProject.ADS]: 'Ads',
 };
 
+const PorjectItem = ({
+  project
+}) => {
+  const { allProjectRows, setProject }= React.useContext(TranslationContext);
+  const translationProject = TranslationProject[project];
+  const name = TranslationProjectNames[translationProject];
+  const rowsWithStatusFilter = React.useMemo(() => allProjectRows?.[TranslationProject[project]]?.filter(r => r.status === TranslationStatus.UNKNOEN), [allProjectRows, project]);
+  
+  return (
+  <ListItemButton sx={{ pl: 4 }} onClick={() => setProject(translationProject)} key={translationProject}>
+    <ListItemIcon>
+      <StarIcon color='warning'/>
+    </ListItemIcon>
+    {
+      <Badge color="error" badgeContent={rowsWithStatusFilter?.length}>
+        <ListItemText primary={name} sx={{width:"70px"}}/>
+      </Badge>
+    }
+  </ListItemButton>);
+}
 export const MainListItems = ({isDrawerOpen}) => {
   const [open, setOpen] = React.useState(true);
-  const { rows, project, setProject }= React.useContext(TranslationContext);
-  const rowsWithStatusFilter = React.useMemo(() => rows?.filter(r => r.status === TranslationStatus.UNKNOEN), [rows]);
-
   const handleClick = () => {
     setOpen(!open);
   };
@@ -43,22 +59,7 @@ export const MainListItems = ({isDrawerOpen}) => {
     <Collapse in={isSecondItemOpen} timeout="auto" unmountOnExit>
       <List component="div" disablePadding>
         {
-          Object.keys(TranslationProject).map(key => {
-            const translationProject = TranslationProject[key];
-            return (
-            <ListItemButton sx={{ pl: 4 }} onClick={() => setProject(translationProject)} key={translationProject}>
-              <ListItemIcon>
-                <StarIcon color='warning'/>
-              </ListItemIcon>
-              {
-                project === translationProject ?
-                <Badge color="error" badgeContent={rowsWithStatusFilter.length}>
-                  <ListItemText primary={TranslationProjectNames[translationProject]} sx={{width:"70px"}}/>
-                </Badge> :
-                <ListItemText primary={TranslationProjectNames[translationProject]} sx={{width:"70px"}}/>
-              }
-            </ListItemButton>);
-          })
+          Object.keys(TranslationProject).map(key => <PorjectItem project={key}/>)
         }
       </List>
     </Collapse>

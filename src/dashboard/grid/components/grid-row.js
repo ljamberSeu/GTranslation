@@ -43,7 +43,7 @@ const RowStatus = ({ row }) => {
 
 export default function TranslationRow(props) {
   const { row, index, selected, setSelected } = props;
-  const { setRows }= React.useContext(TranslationContext);
+  const { setRows, project }= React.useContext(TranslationContext);
   const isItemSelected = isSelected(row.id, selected);
   const labelId = `enhanced-table-checkbox-${index}`;
   const [open, setOpen] = React.useState(false);
@@ -119,14 +119,18 @@ export default function TranslationRow(props) {
           {row.status  ? 
             <Tooltip title="Revert string status">
               <IconButton onClick={(e) => {
-                setRows((allRows) => allRows?.map((r) => {
-                  if (r.id === row.id) {
-                    const newRow = getNewRow(r, { status: TranslationStatus.UNKNOEN });
-                    updateSingleTranslation(newRow);
-                    return newRow;
-                  }
-                  return r;
-                }));
+                setRows((allRows) => {
+                 const prejectRows = allRows?.[project]?.map((r) => {
+                    if (r.id === row.id) {
+                      const newRow = getNewRow(r, { status: TranslationStatus.UNKNOEN });
+                      updateSingleTranslation(newRow);
+                      return newRow;
+                    }
+                    return r;
+                    }
+                  );
+                  return ({ ...allRows, [project]: prejectRows });
+                });
                 e.stopPropagation();
               }}>
                 <SettingsBackupRestoreIcon color="primary" />
@@ -134,17 +138,21 @@ export default function TranslationRow(props) {
               </Tooltip> :
               <Tooltip title="Accept current translation">
                 <IconButton onClick={(e) => {
-                  setRows((allRows) => allRows?.map(r => {
-                    if (r.id === row.id) {
-                      const newRow = getNewRow(r, {
-                        status: TranslationStatus.DONE,
-                        finalTranslation: r.finalTranslation || r.gptTranslation,
-                      });
-                      updateSingleTranslation(newRow);
-                      return newRow;
-                    }
-                    return r;
-                  }));
+                  setRows((allRows) => {
+                    const prejectRows = allRows?.[project]?.map((r) => {
+                      if (r.id === row.id) {
+                        const newRow = getNewRow(r, {
+                          status: TranslationStatus.DONE,
+                          finalTranslation: r.finalTranslation || r.gptTranslation,
+                        });
+                        updateSingleTranslation(newRow);
+                        return newRow;
+                      }
+                      return r;
+                      }
+                    );
+                    return ({ ...allRows, [project]: prejectRows });
+                  });
                   e.stopPropagation();
                 }}>
                   <CheckSharpIcon color="primary" />
@@ -161,7 +169,7 @@ export default function TranslationRow(props) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <TranslationForm row={row} setOpen={setOpen} setRows={setRows}/>
+          <TranslationForm row={row} setOpen={setOpen} />
         </Box>
       </Modal>
     </>

@@ -7,9 +7,11 @@ import { TranslationStatus } from './constants';
 import { updateSingleTranslation } from '../../../api/list'
 import { getNewRow } from '../utils';
 import { DemoItem } from '@mui/x-date-pickers/internals/demo';
+import { TranslationContext } from '../../../data'
 
-export default function TranslationForm({ row, setOpen, setRows }) {
+export default function TranslationForm({ row, setOpen }) {
   const [finalTranslation, setFinalTranslation] = React.useState(row?.finalTranslation || row?.gptTranslation);
+  const { setRows, project }= React.useContext(TranslationContext);
 
   return (
     <React.Fragment>
@@ -57,17 +59,21 @@ export default function TranslationForm({ row, setOpen, setRows }) {
               variant="contained"
               onClick={() => {
                 setOpen(false);
-                setRows((allRows) => allRows?.map(r => {
-                  if (r.id === row.id) {
-                    const newRow = getNewRow(r, {
-                      status: finalTranslation ? TranslationStatus.DONE : TranslationStatus.UNKNOEN,
-                      finalTranslation: finalTranslation,
-                    });
-                    updateSingleTranslation(newRow);
-                    return newRow;
-                  }
-                  return r;
-                }));
+                setRows((allRows) => {
+                  const prejectRows = allRows?.[project]?.map((r) => {
+                      if (r.id === row.id) {
+                        const newRow = getNewRow(r, {
+                          status: finalTranslation ? TranslationStatus.DONE : TranslationStatus.UNKNOEN,
+                          finalTranslation: finalTranslation,
+                        });
+                        updateSingleTranslation(newRow);
+                        return newRow;
+                      }
+                      return r;
+                    }
+                  );
+                  return ({ ...allRows, [project]: prejectRows });
+                });
               }}> Accepcted </Button>
             <Button variant="contained" onClick={() => setOpen(false)} color="primary"> Cancel </Button>
           </div>
@@ -77,17 +83,21 @@ export default function TranslationForm({ row, setOpen, setRows }) {
             title="Reject this translation as didn't have enough information to translate it correctly"
             onClick={() => {
               setOpen(false);
-              setRows((allRows) => allRows?.map(r => {
-                if (r.id === row.id) {
-                  const newRow = getNewRow(r, {
-                    status: TranslationStatus.REJECTED,
-                    finalTranslation: finalTranslation,
-                  });
-                  updateSingleTranslation(newRow);
-                  return newRow;
-                }
-                return r;
-              }));
+              setRows((allRows) => {
+                const prejectRows = allRows?.[project]?.map((r) => {
+                    if (r.id === row.id) {
+                      const newRow = getNewRow(r, {
+                        status: TranslationStatus.REJECTED,
+                        finalTranslation: finalTranslation,
+                      });
+                      updateSingleTranslation(newRow);
+                      return newRow;
+                    }
+                    return r;
+                  }
+                );
+                return ({ ...allRows, [project]: prejectRows });
+              });
             }}
             color="error"
           >

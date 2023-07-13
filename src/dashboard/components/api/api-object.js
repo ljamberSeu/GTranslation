@@ -28,9 +28,9 @@ export class TranslationDBQuery {
         return;
       }
       if (after) {
-        this.setRows((rows) => [...rows, ...(data.value || [])]);
+        this.setRows((rows) => ({ ...rows, [this.project]: [...(rows[this.project] || []), ...(data.value || [])] }));
       } else {
-        this.setRows(data.value || []);
+        this.setRows((rows) => ({ ...rows, [this.project]: data.value || [] }));
       }
       after = data?.nextLink && (new URL(data.nextLink))?.searchParams?.get?.('$after');
       if (after !== undefined && this.shouldStopPreviousCall === false && this.apiCallTimes < maxAPICallTimes - 1) {
