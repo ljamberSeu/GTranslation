@@ -80,7 +80,7 @@ export const MainListItems = ({isDrawerOpen}) => {
       <ListItemIcon>
         <BarChartIcon />
       </ListItemIcon>
-      <ListItemText primary="Notification" />
+      <ListItemText primary="Data set" />
     </ListItemButton>
   </React.Fragment>
 );

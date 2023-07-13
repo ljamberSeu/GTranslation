@@ -23,6 +23,7 @@ import Chart from './chart';
 import Deposits from './deposits';
 import Orders from './grid';
 import DatePickerComponent from './components/date-picker';
+import LocalSelect from './components/lang-select';
 
 function Copyright(props) {
   return (
@@ -123,6 +124,7 @@ export default function Dashboard() {
             >
               Review Dashboard
             </Typography>
+            <LocalSelect />
             <DatePickerComponent />
             <IconButton color="inherit">
               <Badge badgeContent={1} color="secondary">

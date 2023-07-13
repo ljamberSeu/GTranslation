@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 import Dashboard from './dashboard/dashboard';
 import { TranslationContext, GridContext } from './data';
 import './App.css';
-import { TranslationProject } from './dashboard/grid/components/constants';
+import { TranslationProject, TranslationLocale } from './dashboard/grid/components/constants';
 import { TranslationDBQuery } from './dashboard/components/api/api-object';
 
 function App() {
@@ -11,6 +11,8 @@ function App() {
   const [showAll, setShowAll] = React.useState(true);
   const [project, setProject] = React.useState(TranslationProject.XPAY);
   const [query, setQuery] = React.useState(null);
+  const [locale, setLocale] = React.useState(TranslationLocale.ZHHANS);
+
   const [startDate, setStartDate] = React.useState(() => {
     var d = new Date();
     // Set it to 7 days ago ago
@@ -24,14 +26,14 @@ function App() {
       if (query !== null) {
         query.stopAPIcall();
       }
-      return new TranslationDBQuery(showAll, project, startDate, setRows);
+      return new TranslationDBQuery(showAll, project, startDate, locale, setRows);
     });
-  }, [showAll, startDate, project]);
+  }, [showAll, startDate, project, locale]);
 
   return (
     <div className="App">
       <TranslationContext.Provider value={{ allProjectRows, rows, setRows, showAll, setShowAll, project, setProject, query }}>
-        <GridContext.Provider value={{startDate, setStartDate}}>
+        <GridContext.Provider value={{startDate, setStartDate, locale, setLocale}}>
           <Dashboard />
         </GridContext.Provider>
       </TranslationContext.Provider>

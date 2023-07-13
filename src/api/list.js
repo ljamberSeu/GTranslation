@@ -18,6 +18,7 @@ export const getDataFromDBStatus = async ({
   status,
   startDate,
   project,
+  locale,
   after,
 }) => callFuctionWithErrorHandle(async () => {
   const endpoint = `/data-api/rest/Translation`;
@@ -28,8 +29,11 @@ export const getDataFromDBStatus = async ({
   if (startDate) {
     urlExtend.push(`timestamp ge ${startDate.$d.toISOString()}`);
   }
-  if (startDate) {
+  if (project) {
     urlExtend.push(`project eq ${project}`);
+  }
+  if (locale) {
+    urlExtend.push(`locale eq ${locale}`);
   }
   const response = await fetch(`${endpoint}?$filter=${urlExtend?.join(' and ')}${ after ? `&$after=${after}` : '' }`);
   const result = await response.json();
