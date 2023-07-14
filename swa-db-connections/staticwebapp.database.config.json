@@ -26,14 +26,14 @@
     }
   },
   "entities": {
-      "Translation": {
-        "source": "pending_translation",
-        "permissions": [
-          {
-            "actions": ["read", "update", "create"],
-            "role": "anonymous"
-          }
-        ]
-      }
+    "Translation": {
+      "source": "pending_translation",
+      "permissions": [
+        {
+          "actions": ["read", "update", "create"],
+          "role": "anonymous"
+        }
+      ]
     }
+  }
 }

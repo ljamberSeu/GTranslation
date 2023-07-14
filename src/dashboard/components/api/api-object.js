@@ -1,7 +1,5 @@
-import { getDataFromDBStatus } from '../../../api/list';
+import { getDataFromDBStatus, maxAPICallTimes } from '../../../api/list';
 import { TranslationStatus } from '../../grid/components/constants';
-
-export const maxAPICallTimes = 30;
 
 export class TranslationDBQuery {
   constructor(showAll, project, startDate, locale, setRows) {
@@ -11,7 +9,7 @@ export class TranslationDBQuery {
     this.locale = locale;
     this.shouldStopPreviousCall = false;
     this.setRows = setRows;
-    this.apiCallTimes = 0;
+    this.pageCounts = 0;
     this.apiIsprogressing = true;
     this.getData();
   }
@@ -30,13 +28,15 @@ export class TranslationDBQuery {
         return;
       }
       if (after) {
-        this.setRows((rows) => ({ ...rows, [this.project]: [...(rows[this.project] || []), ...(data?.value || [])] }));
+        this.setRows((rows) => ({ ...rows, [this.project]: [...(rows[this.project] || []), ...(data?.items || [])] }));
       } else {
-        this.setRows((rows) => ({ ...rows, [this.project]: data?.value || [] }));
+        this.setRows((rows) => ({ ...rows, [this.project]: data?.items || [] }));
       }
-      after = data?.nextLink && (new URL(data.nextLink))?.searchParams?.get?.('$after');
-      if (after !== undefined && this.shouldStopPreviousCall === false && this.apiCallTimes < maxAPICallTimes - 1) {
-        this.apiCallTimes++;
+      after = data?.hasNextPage && data?.endCursor;
+      if (after) {
+        this.pageCounts++;
+      }
+      if (after && this.shouldStopPreviousCall === false && this.pageCounts < maxAPICallTimes) {
         this.getData(after);
       } else {
         this.apiIsprogressing = false;
@@ -53,6 +53,6 @@ export class TranslationDBQuery {
   }
 
   IsDataOverFlow() {
-    return !this.IsAPIcallInProgress() && this.apiCallTimes > maxAPICallTimes - 1;
+    return !this.IsAPIcallInProgress() && this.pageCounts > maxAPICallTimes - 1;
   }
 }

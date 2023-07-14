@@ -6,13 +6,13 @@ export const TranslationStatus = {
 };
 
 export const TranslationProject = {
-  XPAY: "'xpay'",
-  ADS: "'ads'",
+  XPAY: "xpay",
+  ADS: "ads",
 };
 
 
 export const TranslationLocale = {
-  ZHHANS: "'zh-Hans'",
-  ID: "'id'",
-  PRBR: "'pr-BR'",
+  ZHHANS: "zh-Hans",
+  ID: "id",
+  PRBR: "pr-BR",
 };
