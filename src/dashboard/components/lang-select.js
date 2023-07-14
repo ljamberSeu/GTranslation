@@ -7,7 +7,7 @@ import { GridContext } from '../../data';
 const localeStrings = {
   [TranslationLocale.ID]: 'Indonesia',
   [TranslationLocale.PRBR]: 'Brazilian Portuguese',
-  [TranslationLocale.ZHHANS]: 'Simple Chinese',
+  [TranslationLocale.ZHHANS]: 'Simplified Chinese',
 }
 
 export default function LocalSelect() {
