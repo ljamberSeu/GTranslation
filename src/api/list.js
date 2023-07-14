@@ -59,6 +59,7 @@ export const getDataFromDBStatus = async ({
           stringOwner
           project
           locale
+          lasted_update
         }
         hasNextPage
         endCursor
@@ -84,7 +85,6 @@ export const updateSingleTranslation = async (row) => callFuctionWithErrorHandle
         locale
         project
         original
-        timestamp
         reviewer
         finalTranslation
       }
@@ -99,7 +99,6 @@ export const updateSingleTranslation = async (row) => callFuctionWithErrorHandle
         status: row.status,
         project: row.project,
         original: row.original,
-        timestamp: row.timestamp,
         reviewer: row.reviewer,
         finalTranslation: row.finalTranslation,
       }
