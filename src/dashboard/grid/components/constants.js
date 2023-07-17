@@ -8,6 +8,7 @@ export const TranslationStatus = {
 export const TranslationProject = {
   XPAY: "xpay",
   ADS: "ads",
+  CRYPTO: "crypto-shared",
 };
 
 

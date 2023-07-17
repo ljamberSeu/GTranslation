@@ -19,6 +19,7 @@ import { TranslationStatus, TranslationProject } from './grid/components/constan
 const TranslationProjectNames = {
   [TranslationProject.XPAY]: 'Xpay',
   [TranslationProject.ADS]: 'Ads',
+  [TranslationProject.CRYPTO]: 'Crypto',
 };
 
 const PorjectItem = ({
