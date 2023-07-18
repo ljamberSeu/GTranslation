@@ -77,7 +77,7 @@ export const getDataFromDBStatus = async ({
       body: JSON.stringify({ query: query })
   });
   const result = await response.json();
-  return result.data.translations;
+  return result?.data?.translations;
 });
 
 export const updateSingleTranslation = async (row) => callFuctionWithErrorHandle(async () => {
