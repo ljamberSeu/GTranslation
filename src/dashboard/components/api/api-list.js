@@ -1,4 +1,4 @@
-import { getDataFromDBStatus, maxAPICallTimes } from '../../../api/list';
+import { getDataFromDBStatus, maxAPICallTimes } from './apis';
 import { TranslationStatus } from '../../grid/components/constants';
 
 export class TranslationDBQuery {

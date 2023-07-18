@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { updateSingleTranslation } from '../../../api/list';
+import { updateSingleTranslation } from './apis';
 import { TranslationContext } from '../../../data';
 
 const getNewRow = (row, newFiles) => ({

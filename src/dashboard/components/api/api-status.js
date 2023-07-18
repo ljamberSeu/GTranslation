@@ -3,7 +3,7 @@ import LinearProgress from '@mui/material/LinearProgress';
 import Alert from '@mui/material/Alert';
 
 import { TranslationContext } from '../../../data';
-import { maxItems } from '../../../api/list';
+import { maxItems } from './apis';
 
 export default function APIStatus() {
   const {query, updateQuerys, setUpdateQuerys}= React.useContext(TranslationContext);

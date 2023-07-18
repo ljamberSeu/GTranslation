@@ -1,4 +1,4 @@
-import { getDataFromDBStatus } from '../../../api/list';
+import { getDataFromDBStatus } from './apis';
 import { TranslationStatus, TranslationProject } from '../../grid/components/constants';
 
 export class TranslationDBCountQuery {
