@@ -46,10 +46,10 @@ export default function FilterMenu({
         </MenuItem>
       ))}
       <div style={{margin: '20px'}}>
-        <Tooltip title="Add new filter">
+      <Tooltip title="Add new filter">
           <Button onClick={() => setFilters(s => [...(s || []), new Filter()])} variant='contained' color='inherit' >
             <AddIcon color='primary' />
-            Add new filter
+            And
           </Button>
         </Tooltip>
         <Tooltip title="Apply filters" sx={{marginInlineStart: '20px'}}>
