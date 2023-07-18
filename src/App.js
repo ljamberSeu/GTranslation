@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 import Dashboard from './dashboard/dashboard';
 import { TranslationContext, GridContext } from './data';
 import { TranslationProject, TranslationLocale } from './dashboard/grid/components/constants';
-import { TranslationDBQuery } from './dashboard/components/api/api-object';
+import { TranslationDBQuery } from './dashboard/components/api/api-list';
 import { TranslationDBCountQuery } from './dashboard/components/api/api-count-query';
 
 const initialProject = TranslationProject.XPAY;
