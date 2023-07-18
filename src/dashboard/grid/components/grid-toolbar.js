@@ -38,7 +38,7 @@ export default function EnhancedTableToolbar(props) {
         </Typography>
       ) : (
         <Typography
-          sx={{ flex: '1 1 100%' }}
+          sx={{ flex: '1 1 100%', margin: 'auto', display: 'flex', justifyContent: 'center'}}
           variant="h6"
           id="tableTitle"
           component="div"
