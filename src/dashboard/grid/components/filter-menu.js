@@ -20,7 +20,10 @@ export default function FilterMenu({
       id="basic-menu"
       anchorEl={anchorEl}
       open={open}
-      onClose={() => setAnchorEl(null)}
+      onClose={() => {
+        setFiltersForAPI(filters);
+        setAnchorEl(null);
+      }}
       MenuListProps={{
         'aria-labelledby': 'basic-button',
       }}
@@ -46,7 +49,7 @@ export default function FilterMenu({
         </MenuItem>
       ))}
       <div style={{margin: '20px'}}>
-      <Tooltip title="Add new filter">
+        <Tooltip title="Add new filter">
           <Button onClick={() => setFilters(s => [...(s || []), new Filter()])} variant='contained' color='inherit' >
             <AddIcon color='primary' />
             And
