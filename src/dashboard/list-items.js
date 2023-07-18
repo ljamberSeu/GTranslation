@@ -3,7 +3,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import DashboardIcon from '@mui/icons-material/Dashboard';
-import ManageSearchIcon from '@mui/icons-material/ManageSearch';
+import SettingsIcon from '@mui/icons-material/Settings';
 import PeopleIcon from '@mui/icons-material/People';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import AssignmentIcon from '@mui/icons-material/Assignment';
@@ -66,12 +66,6 @@ export const MainListItems = ({isDrawerOpen}) => {
 
     <ListItemButton>
       <ListItemIcon>
-        <ManageSearchIcon />
-      </ListItemIcon>
-      <ListItemText primary="History" />
-    </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
         <PeopleIcon />
       </ListItemIcon>
       <ListItemText primary="Project" />
@@ -81,6 +75,12 @@ export const MainListItems = ({isDrawerOpen}) => {
         <BarChartIcon />
       </ListItemIcon>
       <ListItemText primary="Term library" />
+    </ListItemButton>
+    <ListItemButton>
+      <ListItemIcon>
+        <SettingsIcon />
+      </ListItemIcon>
+      <ListItemText primary="Settings" />
     </ListItemButton>
   </React.Fragment>
 );

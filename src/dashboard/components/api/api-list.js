@@ -1,8 +1,54 @@
 import { getDataFromDBStatus, maxAPICallTimes } from './apis';
 import { TranslationStatus } from '../../grid/components/constants';
 
+export const StringCondition = {
+  EQUALS: 'eq',
+  STARTS_WITH: 'startsWith',
+  ENDS_WITH: 'endsWith',
+  CONTAINS: 'contains',
+  NOT_CONTAINS: 'notContains',
+};
+
+export class Filter {
+  constructor() {
+    this.value = null;
+    this.column = null;
+    this.condition = null;
+  }
+
+  getCondition() {
+    return this.condition;
+  }
+
+  setCondition(condition) {
+    this.condition = condition;
+  }
+
+  getColumn() {
+    return this.column;
+  }
+
+  setColumn(column) {
+    this.column = column;
+  }
+
+  getValue() {
+    return this.value;
+  }
+
+  setValue(value) {
+    this.value = value;
+  }
+
+  setFilterObject(filter) {
+    if (this.column && this.condition && this.value) {
+      filter[this.column] = `{ ${this.condition}: "${this.value}" }`;
+    }
+  }
+}
+
 export class TranslationDBQuery {
-  constructor(showAll, project, startDate, locale, setRows) {
+  constructor(showAll, project, startDate, locale, setRows, filters) {
     this.showAll = showAll;
     this.project = project;
     this.startDate = startDate;
@@ -11,6 +57,8 @@ export class TranslationDBQuery {
     this.setRows = setRows;
     this.pageCounts = 0;
     this.apiIsprogressing = true;
+    this.filter = {};
+    filters?.map?.((filter) => filter.setFilterObject(this.filter));
     this.getData();
   }
 
@@ -21,6 +69,7 @@ export class TranslationDBQuery {
       project: this.project,
       locale: this.locale,
       after,
+      filter: this.filter,
     // eslint-disable-next-line no-loop-func
     }).then((data) => {
       if (this.shouldStopPreviousCall) {

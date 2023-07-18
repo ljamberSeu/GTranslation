@@ -26,8 +26,8 @@ export const getDataFromDBStatus = async ({
   after,
   first = defaultFirst,
   onlyPrimary = false,
+  filter = {},
 }) => callFuctionWithErrorHandle(async () => {
-  const filter = {};
   if (status !== null) {
     filter['status'] = `{ eq: ${status} }`;
   }

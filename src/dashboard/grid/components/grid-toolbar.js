@@ -7,57 +7,68 @@ import { alpha } from '@mui/material/styles';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import DoneAllSharpIcon from '@mui/icons-material/DoneAllSharp';
 import PropTypes from 'prop-types';
+import FilterMenu from './filter-menu';
 
 export default function EnhancedTableToolbar(props) {
   const { numSelected } = props;
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = !!anchorEl;
 
   return (
-    <Toolbar
-      sx={{
-        pl: { sm: 2 },
-        pr: { xs: 1, sm: 1 },
-        ...(numSelected > 0 && {
-          bgcolor: (theme) =>
-            alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity),
-        }),
-      }}
-    >
-      {numSelected > 0 ? (
-        <Typography
-          sx={{ flex: '1 1 100%' }}
-          color="inherit"
-          variant="subtitle1"
-          component="div"
-        >
-          {numSelected} selected
-        </Typography>
-      ) : (
-        <Typography
-          sx={{ flex: '1 1 100%', margin: 'auto', display: 'flex', justifyContent: 'center'}}
-          variant="h6"
-          id="tableTitle"
-          component="div"
-        >
-          Translations
-        </Typography>
-      )}
+    <>
+      <Toolbar
+        sx={{
+          pl: { sm: 2 },
+          pr: { xs: 1, sm: 1 },
+          ...(numSelected > 0 && {
+            bgcolor: (theme) =>
+              alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity),
+          }),
+        }}
+      >
+        {numSelected > 0 ? (
+          <Typography
+            sx={{ flex: '1 1 100%' }}
+            color="inherit"
+            variant="subtitle1"
+            component="div"
+          >
+            {numSelected} selected
+          </Typography>
+        ) : (
+          <Typography
+            sx={{ flex: '1 1 100%', margin: 'auto', display: 'flex', justifyContent: 'center'}}
+            variant="h6"
+            id="tableTitle"
+            component="div"
+          >
+            Translations
+          </Typography>
+        )}
 
-      {numSelected > 0 ? (
-        <div style={{gap: '10px', display:'flex'}}>
-          <Tooltip title="Accept all selected translations">
-            <IconButton onClick={() => {}}>
-              <DoneAllSharpIcon color='primary'/>
+        {numSelected > 0 ? (
+          <div style={{gap: '10px', display:'flex'}}>
+            <Tooltip title="Accept all selected translations">
+              <IconButton onClick={() => {}}>
+                <DoneAllSharpIcon color='primary'/>
+              </IconButton>
+            </Tooltip>
+          </div>
+        ) : (
+          <Tooltip title="Filter list">
+            <IconButton
+              onClick={(event) => setAnchorEl(event.currentTarget)}
+              aria-haspopup="true"
+              aria-controls={open ? 'composition-menu' : undefined}
+              aria-expanded={open ? 'true' : undefined}
+            >
+              <FilterListIcon />
             </IconButton>
           </Tooltip>
-        </div>
-      ) : (
-        <Tooltip title="Filter list">
-          <IconButton>
-            <FilterListIcon />
-          </IconButton>
-        </Tooltip>
-      )}
-    </Toolbar>
+        )}
+          <FilterMenu anchorEl={anchorEl} setAnchorEl={setAnchorEl}/>
+      </Toolbar>
+    </>
   );
 }
 

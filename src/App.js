@@ -16,6 +16,7 @@ function App() {
   const [query, setQuery] = React.useState(null);
   const [updateQuerys, setUpdateQuerys] = React.useState({});
   const [locale, setLocale] = React.useState(TranslationLocale.ZHHANS);
+  const [filters, setFilters] = React.useState([]);
 
   const [startDate, setStartDate] = React.useState(() => {
     var d = new Date();
@@ -33,14 +34,14 @@ function App() {
       if (query !== null) {
         query.stopAPIcall();
       }
-      return new TranslationDBQuery(showAll, project, startDate, locale, setRows);
+      return new TranslationDBQuery(showAll, project, startDate, locale, setRows, filters);
     });
-  }, [showAll, startDate, project, locale]);
+  }, [showAll, startDate, project, locale, filters]);
 
   return (
     <div className="App">
       <TranslationContext.Provider value={{rows, setRows, showAll, setShowAll, project, setProject, query, allProjectCounts, updateQuerys, setUpdateQuerys }}>
-        <GridContext.Provider value={{startDate, setStartDate, locale, setLocale}}>
+        <GridContext.Provider value={{startDate, setStartDate, locale, setLocale, filters, setFilters}}>
           <Dashboard />
         </GridContext.Provider>
       </TranslationContext.Provider>

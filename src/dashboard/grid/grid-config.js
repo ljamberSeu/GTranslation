@@ -6,6 +6,7 @@ export const headCells = [
     disablePadding: true,
     label: 'Original string',
     sortabled: true,
+    isSearchable: true,
   },
   {
     id: 'gptTranslation',
@@ -13,6 +14,7 @@ export const headCells = [
     disablePadding: false,
     label: 'GPT Translation',
     sortabled: true,
+    isSearchable: true,
   },
   {
     id: 'devComment',
@@ -20,6 +22,7 @@ export const headCells = [
     disablePadding: false,
     label: 'Dev comment',
     sortabled: true,
+    isSearchable: true,
   },
   {
     id: 'stringOwner',
@@ -27,6 +30,7 @@ export const headCells = [
     disablePadding: false,
     label: 'String owner',
     sortabled: true,
+    isSearchable: true,
   },
   {
     id: 'reviewer',
@@ -34,6 +38,7 @@ export const headCells = [
     disablePadding: false,
     sortabled: true,
     label: 'Lasted reviewer',
+    isSearchable: true,
   },
   {
     id: 'finalTranslation',
@@ -41,6 +46,7 @@ export const headCells = [
     disablePadding: false,
     sortabled: true,
     label: 'Final translation',
+    isSearchable: true,
   },
   {
     id: 'status',
@@ -48,6 +54,7 @@ export const headCells = [
     disablePadding: false,
     sortabled: true,
     label: 'Status',
+    isSearchable: true,
   },
   {
     id: 'actions',
