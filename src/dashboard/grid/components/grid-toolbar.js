@@ -6,15 +6,10 @@ import Tooltip from '@mui/material/Tooltip';
 import { alpha } from '@mui/material/styles';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import DoneAllSharpIcon from '@mui/icons-material/DoneAllSharp';
-import { isSelected, getNewRow } from '../utils';
 import PropTypes from 'prop-types';
-import { TranslationContext } from '../../../data'
-import { TranslationStatus } from './constants';
-import { updateSingleTranslation } from '../../../api/list'
 
 export default function EnhancedTableToolbar(props) {
-  const { numSelected, selected } = props;
-  const { setRows }= React.useContext(TranslationContext);
+  const { numSelected } = props;
 
   return (
     <Toolbar
@@ -50,24 +45,7 @@ export default function EnhancedTableToolbar(props) {
       {numSelected > 0 ? (
         <div style={{gap: '10px', display:'flex'}}>
           <Tooltip title="Accept all selected translations">
-            <IconButton onClick={() => {
-                setRows((allRows) => {
-                  const prejectRows = allRows?.map((r) => {
-                      const isItemSelected = isSelected(r.id, selected);
-                      if (isItemSelected) {
-                        const newRow = getNewRow(r, {
-                          status: TranslationStatus.DONE,
-                          finalTranslation: r.gptTranslation,
-                        });
-                        updateSingleTranslation(newRow);
-                        return  newRow;
-                      }
-                      return r;
-                    }
-                  );
-                  return prejectRows;
-                });
-              }}>
+            <IconButton onClick={() => {}}>
               <DoneAllSharpIcon color='primary'/>
             </IconButton>
           </Tooltip>

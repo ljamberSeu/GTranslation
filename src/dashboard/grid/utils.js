@@ -32,9 +32,3 @@ export function stableSort(array, comparator) {
 }
 
 export const isSelected = (id, selected) => selected.indexOf(id) !== -1;
-
-export const getNewRow = (row, newFiles) => ({
-  ...row,
-  ...newFiles,
-  reviewer: 'danluo@microsoft.com',
-});

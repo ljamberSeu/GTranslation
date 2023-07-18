@@ -14,6 +14,7 @@ function App() {
   const [showAll, setShowAll] = React.useState(true);
   const [project, setProject] = React.useState(initialProject);
   const [query, setQuery] = React.useState(null);
+  const [updateQuerys, setUpdateQuerys] = React.useState({});
   const [locale, setLocale] = React.useState(TranslationLocale.ZHHANS);
 
   const [startDate, setStartDate] = React.useState(() => {
@@ -38,7 +39,7 @@ function App() {
 
   return (
     <div className="App">
-      <TranslationContext.Provider value={{ rows, setRows, showAll, setShowAll, project, setProject, query, allProjectCounts }}>
+      <TranslationContext.Provider value={{rows, setRows, showAll, setShowAll, project, setProject, query, allProjectCounts, updateQuerys, setUpdateQuerys }}>
         <GridContext.Provider value={{startDate, setStartDate, locale, setLocale}}>
           <Dashboard />
         </GridContext.Provider>

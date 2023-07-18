@@ -4,14 +4,12 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { TranslationStatus } from './constants';
-import { updateSingleTranslation } from '../../../api/list'
-import { getNewRow } from '../utils';
+import { useUpdateQuerys } from '../../components/api/api-update-query';
 import { DemoItem } from '@mui/x-date-pickers/internals/demo';
-import { TranslationContext } from '../../../data'
 
 export default function TranslationForm({ row, setOpen }) {
   const [finalTranslation, setFinalTranslation] = React.useState(row?.finalTranslation || row?.gptTranslation);
-  const { setRows }= React.useContext(TranslationContext);
+  const update = useUpdateQuerys();
 
   return (
     <React.Fragment>
@@ -59,20 +57,9 @@ export default function TranslationForm({ row, setOpen }) {
               variant="contained"
               onClick={() => {
                 setOpen(false);
-                setRows((allRows) => {
-                  const prejectRows = allRows?.map((r) => {
-                      if (r.id === row.id) {
-                        const newRow = getNewRow(r, {
-                          status: finalTranslation ? TranslationStatus.DONE : TranslationStatus.UNKNOEN,
-                          finalTranslation: finalTranslation,
-                        });
-                        updateSingleTranslation(newRow);
-                        return newRow;
-                      }
-                      return r;
-                    }
-                  );
-                  return prejectRows;
+                update(row.id,  {
+                  status: finalTranslation ? TranslationStatus.DONE : TranslationStatus.UNKNOEN,
+                  finalTranslation: finalTranslation,
                 });
               }}> Accepcted </Button>
             <Button variant="contained" onClick={() => setOpen(false)} color="primary"> Cancel </Button>
@@ -83,20 +70,9 @@ export default function TranslationForm({ row, setOpen }) {
             title="Reject this translation as didn't have enough information to translate it correctly"
             onClick={() => {
               setOpen(false);
-              setRows((allRows) => {
-                const prejectRows = allRows?.map((r) => {
-                    if (r.id === row.id) {
-                      const newRow = getNewRow(r, {
-                        status: TranslationStatus.REJECTED,
-                        finalTranslation: finalTranslation,
-                      });
-                      updateSingleTranslation(newRow);
-                      return newRow;
-                    }
-                    return r;
-                  }
-                );
-                return prejectRows;
+              update(row.id,  {
+                status: TranslationStatus.REJECTED,
+                finalTranslation: finalTranslation,
               });
             }}
             color="error"

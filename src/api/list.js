@@ -4,7 +4,8 @@ export const maxAPICallTimes = Math.ceil(maxItems/defaultFirst);
 
 const callFuctionWithErrorHandle = async (apiCallFunction) => {
   try {
-    return await apiCallFunction();
+    const result =  await apiCallFunction();
+    return result;
   } catch (error) {
     console.log(error);
   }
@@ -84,14 +85,18 @@ export const updateSingleTranslation = async (row) => callFuctionWithErrorHandle
     mutation update($id: String!, $locale: String!, $item: UpdateTranslationInput!) {
       updateTranslation(id: $id, locale: $locale, item: $item) {
         id
-        status
         locale
+        status
         project
         original
         reviewer
         finalTranslation
+        lasted_update
       }
     }`;
+  const offsetHours = new Date().getTimezoneOffset() / 60;
+  const lasted_update = new Date(row.lasted_update);
+  lasted_update.setHours(lasted_update.getHours() - 2 * offsetHours);
 
   const query = {
     query: gql,
@@ -104,6 +109,7 @@ export const updateSingleTranslation = async (row) => callFuctionWithErrorHandle
         original: row.original,
         reviewer: row.reviewer,
         finalTranslation: row.finalTranslation,
+        lasted_update: lasted_update.toISOString().slice(0, 19).replace('T', ' ')
       }
     } 
   };
@@ -116,5 +122,5 @@ export const updateSingleTranslation = async (row) => callFuctionWithErrorHandle
   });
 
   const result = await res.json();
-  return result.updateTranslation;
+  return result?.data?.updateTranslation;
 });
