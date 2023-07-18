@@ -2,7 +2,6 @@ import * as React from 'react';
 import dayjs from 'dayjs';
 import Dashboard from './dashboard/dashboard';
 import { TranslationContext, GridContext } from './data';
-import './App.css';
 import { TranslationProject, TranslationLocale } from './dashboard/grid/components/constants';
 import { TranslationDBQuery } from './dashboard/components/api/api-object';
 import { TranslationDBCountQuery } from './dashboard/components/api/api-count-query';
