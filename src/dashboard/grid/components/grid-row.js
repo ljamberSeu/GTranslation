@@ -43,7 +43,7 @@ const RowStatus = ({ row }) => {
 
 export default function TranslationRow(props) {
   const { row, index, selected, setSelected } = props;
-  const { setRows, project }= React.useContext(TranslationContext);
+  const { setRows }= React.useContext(TranslationContext);
   const isItemSelected = isSelected(row.id, selected);
   const labelId = `enhanced-table-checkbox-${index}`;
   const [open, setOpen] = React.useState(false);
@@ -120,7 +120,7 @@ export default function TranslationRow(props) {
             <Tooltip title="Revert string status">
               <IconButton onClick={(e) => {
                 setRows((allRows) => {
-                 const prejectRows = allRows?.[project]?.map((r) => {
+                 const prejectRows = allRows?.map((r) => {
                     if (r.id === row.id) {
                       const newRow = getNewRow(r, { status: TranslationStatus.UNKNOEN });
                       updateSingleTranslation(newRow);
@@ -129,7 +129,7 @@ export default function TranslationRow(props) {
                     return r;
                     }
                   );
-                  return ({ ...allRows, [project]: prejectRows });
+                  return prejectRows;
                 });
                 e.stopPropagation();
               }}>
@@ -139,7 +139,7 @@ export default function TranslationRow(props) {
               <Tooltip title="Accept current translation">
                 <IconButton onClick={(e) => {
                   setRows((allRows) => {
-                    const prejectRows = allRows?.[project]?.map((r) => {
+                    const prejectRows = allRows?.map((r) => {
                       if (r.id === row.id) {
                         const newRow = getNewRow(r, {
                           status: TranslationStatus.DONE,
@@ -151,7 +151,7 @@ export default function TranslationRow(props) {
                       return r;
                       }
                     );
-                    return ({ ...allRows, [project]: prejectRows });
+                    return prejectRows;
                   });
                   e.stopPropagation();
                 }}>

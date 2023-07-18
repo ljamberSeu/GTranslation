@@ -28,9 +28,9 @@ export class TranslationDBQuery {
         return;
       }
       if (after) {
-        this.setRows((rows) => ({ ...rows, [this.project]: [...(rows[this.project] || []), ...(data?.items || [])] }));
+        this.setRows((rows) => [...(rows[this.project] || []), ...(data?.items || [])]);
       } else {
-        this.setRows((rows) => ({ ...rows, [this.project]: data?.items || [] }));
+        this.setRows(() => data?.items || []);
       }
       after = data?.hasNextPage && data?.endCursor;
       if (after) {

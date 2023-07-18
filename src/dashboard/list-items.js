@@ -14,7 +14,7 @@ import Collapse from '@mui/material/Collapse';
 import StarIcon from '@mui/icons-material/Star';
 import Badge from '@mui/material/Badge';
 import { TranslationContext } from '../data';
-import { TranslationStatus, TranslationProject } from './grid/components/constants';
+import { TranslationProject } from './grid/components/constants';
 
 const TranslationProjectNames = {
   [TranslationProject.XPAY]: 'Xpay',
@@ -25,10 +25,9 @@ const TranslationProjectNames = {
 const PorjectItem = ({
   project
 }) => {
-  const { allProjectRows, setProject }= React.useContext(TranslationContext);
+  const { allProjectCounts, setProject }= React.useContext(TranslationContext);
   const translationProject = TranslationProject[project];
   const name = TranslationProjectNames[translationProject];
-  const rowsWithStatusFilter = React.useMemo(() => allProjectRows?.[TranslationProject[project]]?.filter(r => r.status === TranslationStatus.UNKNOEN), [allProjectRows, project]);
   
   return (
   <ListItemButton sx={{ pl: 4 }} onClick={() => setProject(translationProject)} key={translationProject}>
@@ -36,7 +35,7 @@ const PorjectItem = ({
       <StarIcon color='warning'/>
     </ListItemIcon>
     {
-      <Badge color="error" badgeContent={rowsWithStatusFilter?.length}>
+      <Badge color="error" badgeContent={allProjectCounts[translationProject]}>
         <ListItemText primary={name} sx={{width:"70px"}}/>
       </Badge>
     }

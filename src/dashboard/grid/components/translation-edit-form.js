@@ -11,7 +11,7 @@ import { TranslationContext } from '../../../data'
 
 export default function TranslationForm({ row, setOpen }) {
   const [finalTranslation, setFinalTranslation] = React.useState(row?.finalTranslation || row?.gptTranslation);
-  const { setRows, project }= React.useContext(TranslationContext);
+  const { setRows }= React.useContext(TranslationContext);
 
   return (
     <React.Fragment>
@@ -60,7 +60,7 @@ export default function TranslationForm({ row, setOpen }) {
               onClick={() => {
                 setOpen(false);
                 setRows((allRows) => {
-                  const prejectRows = allRows?.[project]?.map((r) => {
+                  const prejectRows = allRows?.map((r) => {
                       if (r.id === row.id) {
                         const newRow = getNewRow(r, {
                           status: finalTranslation ? TranslationStatus.DONE : TranslationStatus.UNKNOEN,
@@ -72,7 +72,7 @@ export default function TranslationForm({ row, setOpen }) {
                       return r;
                     }
                   );
-                  return ({ ...allRows, [project]: prejectRows });
+                  return prejectRows;
                 });
               }}> Accepcted </Button>
             <Button variant="contained" onClick={() => setOpen(false)} color="primary"> Cancel </Button>
@@ -84,7 +84,7 @@ export default function TranslationForm({ row, setOpen }) {
             onClick={() => {
               setOpen(false);
               setRows((allRows) => {
-                const prejectRows = allRows?.[project]?.map((r) => {
+                const prejectRows = allRows?.map((r) => {
                     if (r.id === row.id) {
                       const newRow = getNewRow(r, {
                         status: TranslationStatus.REJECTED,
@@ -96,7 +96,7 @@ export default function TranslationForm({ row, setOpen }) {
                     return r;
                   }
                 );
-                return ({ ...allRows, [project]: prejectRows });
+                return prejectRows;
               });
             }}
             color="error"

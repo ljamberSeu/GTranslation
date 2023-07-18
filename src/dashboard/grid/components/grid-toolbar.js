@@ -14,7 +14,7 @@ import { updateSingleTranslation } from '../../../api/list'
 
 export default function EnhancedTableToolbar(props) {
   const { numSelected, selected } = props;
-  const { setRows, project }= React.useContext(TranslationContext);
+  const { setRows }= React.useContext(TranslationContext);
 
   return (
     <Toolbar
@@ -52,7 +52,7 @@ export default function EnhancedTableToolbar(props) {
           <Tooltip title="Accept all selected translations">
             <IconButton onClick={() => {
                 setRows((allRows) => {
-                  const prejectRows = allRows?.[project]?.map((r) => {
+                  const prejectRows = allRows?.map((r) => {
                       const isItemSelected = isSelected(r.id, selected);
                       if (isItemSelected) {
                         const newRow = getNewRow(r, {
@@ -65,7 +65,7 @@ export default function EnhancedTableToolbar(props) {
                       return r;
                     }
                   );
-                  return ({ ...allRows, [project]: prejectRows });
+                  return prejectRows;
                 });
               }}>
               <DoneAllSharpIcon color='primary'/>

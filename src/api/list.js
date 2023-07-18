@@ -1,6 +1,6 @@
 export const maxItems = 3000;
-const first = 3000;
-export const maxAPICallTimes = Math.ceil(maxItems/first);
+const defaultFirst = 3000;
+export const maxAPICallTimes = Math.ceil(maxItems/defaultFirst);
 
 const callFuctionWithErrorHandle = async (apiCallFunction) => {
   try {
@@ -23,6 +23,8 @@ export const getDataFromDBStatus = async ({
   project,
   locale,
   after,
+  first = defaultFirst,
+  onlyPrimary = false,
 }) => callFuctionWithErrorHandle(async () => {
   const filter = {};
   if (status !== null) {
@@ -48,7 +50,8 @@ export const getDataFromDBStatus = async ({
       translations(${Object.entries(queryConditions).map(([key, value]) => `${key}: ${value}`).join(', ')})
       {
         items {
-          id
+          ${onlyPrimary ? 'id' :
+          `id
           status
           timestamp
           original
@@ -59,7 +62,7 @@ export const getDataFromDBStatus = async ({
           stringOwner
           project
           locale
-          lasted_update
+          lasted_update`}
         }
         hasNextPage
         endCursor

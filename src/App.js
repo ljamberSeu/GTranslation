@@ -5,11 +5,15 @@ import { TranslationContext, GridContext } from './data';
 import './App.css';
 import { TranslationProject, TranslationLocale } from './dashboard/grid/components/constants';
 import { TranslationDBQuery } from './dashboard/components/api/api-object';
+import { TranslationDBCountQuery } from './dashboard/components/api/api-count-query';
+
+const initialProject = TranslationProject.XPAY;
 
 function App() {
-  const [allProjectRows, setRows] = React.useState({});
+  const [rows, setRows] = React.useState([]);
+  const [allProjectCounts, setAllProjectCounts] = React.useState({});
   const [showAll, setShowAll] = React.useState(true);
-  const [project, setProject] = React.useState(TranslationProject.XPAY);
+  const [project, setProject] = React.useState(initialProject);
   const [query, setQuery] = React.useState(null);
   const [locale, setLocale] = React.useState(TranslationLocale.ZHHANS);
 
@@ -19,7 +23,10 @@ function App() {
     d.setDate(d.getDate() - 7);
     return dayjs(d);
   });
-  const rows = React.useMemo(() => allProjectRows[project] || [], [allProjectRows, project]);
+
+  React.useEffect(() => {
+    new TranslationDBCountQuery(startDate, locale, setAllProjectCounts);
+  }, [startDate, locale]);
 
   React.useEffect(() => {
     setQuery(query => {
@@ -32,7 +39,7 @@ function App() {
 
   return (
     <div className="App">
-      <TranslationContext.Provider value={{ allProjectRows, rows, setRows, showAll, setShowAll, project, setProject, query }}>
+      <TranslationContext.Provider value={{ rows, setRows, showAll, setShowAll, project, setProject, query, allProjectCounts }}>
         <GridContext.Provider value={{startDate, setStartDate, locale, setLocale}}>
           <Dashboard />
         </GridContext.Provider>
