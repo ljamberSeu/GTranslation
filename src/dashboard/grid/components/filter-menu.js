@@ -29,24 +29,22 @@ export default function FilterMenu({
       }}
       transformOrigin={{ horizontal: 'right', vertical: 'top' }}
       anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-      sx={{minWidth: '500px'}}
     >
       {filters?.map?.((f, i) => (
-        <MenuItem item xs={12} key={i}>
-          <FilterRow
-            filter={f}
-            onChange={(newF) => {
-              const newFilters = [...filters];
-              newFilters[i] = newF;
-              setFilters(newFilters);
-            }}
-            onDelete={() => {
-              const newFilters = [...filters];
-              newFilters.splice(i, 1);
-              setFilters(newFilters);
-            }}
-          />
-        </MenuItem>
+        <FilterRow
+          filter={f}
+          key={i}
+          onChange={(newF) => {
+            const newFilters = [...filters];
+            newFilters[i] = newF;
+            setFilters(newFilters);
+          }}
+          onDelete={() => {
+            const newFilters = [...filters];
+            newFilters.splice(i, 1);
+            setFilters(newFilters);
+          }}
+        />
       ))}
       <div style={{margin: '20px'}}>
         <Tooltip title="Add new filter">

@@ -44,8 +44,8 @@ export const FilterRow = ({ filter, onChange, onDelete }) => {
   };
 
   return (
-    <Grid container spacing={2} alignItems="center">
-      <Grid item xs={12} sm={4}>
+    <Grid container spacing={2} alignItems="center" sx={{paddingInline: '20px'}}>
+      <Grid item xs={12} sm={3}>
         <Select
           value={column}
           onChange={handleColumnChange}
@@ -59,7 +59,7 @@ export const FilterRow = ({ filter, onChange, onDelete }) => {
           ))}
         </Select>
       </Grid>
-      <Grid item xs={12} sm={4}>
+      <Grid item xs={12} sm={3}>
         <Select
           value={condition}
           onChange={handleConditionChange}
@@ -73,7 +73,7 @@ export const FilterRow = ({ filter, onChange, onDelete }) => {
           ))}
         </Select>
       </Grid>
-      <Grid item xs={12} sm={3}>
+      <Grid item xs={12} sm={5}>
         <TextField
           value={value}
           onChange={handleValueChange}
