@@ -44,7 +44,7 @@ export default function App() {
         <BrowserRouter>
           <Routes>
               <Route path="/" element={<DashboardSection />} />
-              <Route path="/dashboard" element={<DashboardSection />} />
+              <Route index path="/dashboard" element={<DashboardSection />} />
               <Route path="/termlib" element={<TermLibSection />} />
               <Route path="/project" element={<TermLibSection />} />
               <Route path="/settings" element={<TermLibSection />} />

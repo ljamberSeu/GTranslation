@@ -94,9 +94,7 @@ export const updateSingleTranslation = async (row) => callFuctionWithErrorHandle
         lasted_update
       }
     }`;
-  const offsetHours = new Date().getTimezoneOffset() / 60;
   const lasted_update = new Date(row.lasted_update);
-  lasted_update.setHours(lasted_update.getHours() - 2 * offsetHours);
 
   const query = {
     query: gql,
