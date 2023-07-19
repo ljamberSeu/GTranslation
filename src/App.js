@@ -1,14 +1,15 @@
 import * as React from 'react';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import dayjs from 'dayjs';
-import Dashboard from './dashboard/dashboard';
 import { TranslationContext, GridContext } from './data';
 import { TranslationProject, TranslationLocale } from './dashboard/grid/components/constants';
 import { TranslationDBQuery } from './dashboard/components/api/api-list';
 import { TranslationDBCountQuery } from './dashboard/components/api/api-count-query';
-
+import { DashboardSection } from "./pages/dashboard-section";
+import { TermLibSection } from "./pages/term-lib-section";
 const initialProject = TranslationProject.XPAY;
 
-function App() {
+export default function App() {
   const [rows, setRows] = React.useState([]);
   const [allProjectCounts, setAllProjectCounts] = React.useState({});
   const [showAll, setShowAll] = React.useState(true);
@@ -37,16 +38,19 @@ function App() {
       return new TranslationDBQuery(showAll, project, startDate, locale, setRows, filters);
     });
   }, [showAll, startDate, project, locale, filters]);
-
   return (
-    <div className="App">
-      <TranslationContext.Provider value={{rows, setRows, showAll, setShowAll, project, setProject, query, allProjectCounts, updateQuerys, setUpdateQuerys }}>
-        <GridContext.Provider value={{startDate, setStartDate, locale, setLocale, filters, setFilters}}>
-          <Dashboard />
-        </GridContext.Provider>
-      </TranslationContext.Provider>
-    </div>
+    <TranslationContext.Provider value={{rows, setRows, showAll, setShowAll, project, setProject, query, allProjectCounts, updateQuerys, setUpdateQuerys }}>
+      <GridContext.Provider value={{startDate, setStartDate, locale, setLocale, filters, setFilters}}>
+        <BrowserRouter>
+          <Routes>
+              <Route path="/" element={<DashboardSection />} />
+              <Route path="/dashboard" element={<DashboardSection />} />
+              <Route path="/termlib" element={<TermLibSection />} />
+              <Route path="/project" element={<TermLibSection />} />
+              <Route path="/settings" element={<TermLibSection />} />
+          </Routes>
+        </BrowserRouter>
+      </GridContext.Provider>
+    </TranslationContext.Provider>
   );
 }
-
-export default App;

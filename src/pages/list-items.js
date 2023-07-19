@@ -6,7 +6,6 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import SettingsIcon from '@mui/icons-material/Settings';
 import PeopleIcon from '@mui/icons-material/People';
 import BarChartIcon from '@mui/icons-material/BarChart';
-import AssignmentIcon from '@mui/icons-material/Assignment';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import List from '@mui/material/List';
@@ -14,7 +13,8 @@ import Collapse from '@mui/material/Collapse';
 import StarIcon from '@mui/icons-material/Star';
 import Badge from '@mui/material/Badge';
 import { TranslationContext } from '../data';
-import { TranslationProject } from './grid/components/constants';
+import { TranslationProject } from '../dashboard/grid/components/constants';
+import { useNavigate } from 'react-router-dom'
 
 const TranslationProjectNames = {
   [TranslationProject.XPAY]: 'Xpay',
@@ -25,12 +25,16 @@ const TranslationProjectNames = {
 const PorjectItem = ({
   project
 }) => {
+  const navigate = useNavigate();
   const { allProjectCounts, setProject }= React.useContext(TranslationContext);
   const translationProject = TranslationProject[project];
   const name = TranslationProjectNames[translationProject];
   
   return (
-  <ListItemButton sx={{ pl: 4 }} onClick={() => setProject(translationProject)} key={translationProject}>
+  <ListItemButton sx={{ pl: 4 }} onClick={() => {
+    setProject(translationProject);
+    navigate("/dashboard");
+  }} key={translationProject}>
     <ListItemIcon>
       <StarIcon color='warning'/>
     </ListItemIcon>
@@ -45,8 +49,11 @@ export const MainListItems = ({isDrawerOpen}) => {
   const [open, setOpen] = React.useState(true);
   const handleClick = () => {
     setOpen(!open);
+    navigate("/dashboard")
   };
   const isSecondItemOpen = isDrawerOpen && open;
+  const navigate = useNavigate();
+
   return (
   <React.Fragment>
     <ListItemButton onClick={handleClick}>
@@ -64,19 +71,19 @@ export const MainListItems = ({isDrawerOpen}) => {
       </List>
     </Collapse>
 
-    <ListItemButton>
+    <ListItemButton onClick={() => navigate("/project")}>
       <ListItemIcon>
         <PeopleIcon />
       </ListItemIcon>
       <ListItemText primary="Project" />
     </ListItemButton>
-    <ListItemButton>
+    <ListItemButton onClick={() => navigate("/termlib")}>
       <ListItemIcon>
         <BarChartIcon />
       </ListItemIcon>
       <ListItemText primary="Term library" />
     </ListItemButton>
-    <ListItemButton>
+    <ListItemButton onClick={() => navigate("/settings")}>
       <ListItemIcon>
         <SettingsIcon />
       </ListItemIcon>
@@ -85,26 +92,3 @@ export const MainListItems = ({isDrawerOpen}) => {
   </React.Fragment>
 );
   };
-
-export const secondaryListItems = (
-  <React.Fragment>
-    <ListItemButton>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Current month" />
-    </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Last quarter" />
-    </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Year-end sale" />
-    </ListItemButton>
-  </React.Fragment>
-);

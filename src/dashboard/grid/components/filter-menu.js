@@ -2,7 +2,6 @@ import * as React from 'react';
 import Tooltip from '@mui/material/Tooltip';
 import AddIcon from '@mui/icons-material/Add';
 import { Button } from '@mui/material';
-import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import { FilterRow } from './filter-row';
 import { Filter } from '../../components/api/api-list';
