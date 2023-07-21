@@ -6,9 +6,10 @@ export const TranslationStatus = {
 };
 
 export const TranslationProject = {
-  XPAY: "xpay",
+  CRYPTOHUB: "xpay-crypto-hub",
+  CRYPTOSHARED: "xpay-crypto-shared",
+  CRYPTODRAWER: "xpay-crypto-drawer",
   ADS: "ads",
-  CRYPTO: "crypto-shared",
 };
 
 

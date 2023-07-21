@@ -17,9 +17,10 @@ import { TranslationProject } from '../dashboard/grid/components/constants';
 import { useNavigate } from 'react-router-dom'
 
 const TranslationProjectNames = {
-  [TranslationProject.XPAY]: 'Xpay',
   [TranslationProject.ADS]: 'Ads',
-  [TranslationProject.CRYPTO]: 'Crypto',
+  [TranslationProject.CRYPTOSHARED]: 'Crypto Shared',
+  [TranslationProject.CRYPTOHUB]: 'Crypto Hub',
+  [TranslationProject.CRYPTODRAWER]: 'Crypto Drawer',
 };
 
 const PorjectItem = ({

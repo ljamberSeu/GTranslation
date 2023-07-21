@@ -7,7 +7,7 @@ import { TranslationDBQuery } from './dashboard/components/api/api-list';
 import { TranslationDBCountQuery } from './dashboard/components/api/api-count-query';
 import { DashboardSection } from "./pages/dashboard-section";
 import { TermLibSection } from "./pages/term-lib-section";
-const initialProject = TranslationProject.XPAY;
+const initialProject = TranslationProject.CRYPTOHUB;
 
 export default function App() {
   const [rows, setRows] = React.useState([]);
