@@ -24,6 +24,18 @@ const TranslationProjectNames = {
   [TranslationProject.CRYPTODRAWER]: "Crypto Drawer"
 };
 
+const ButtonName = {
+  Project: "Project",
+  Term: "Term library",
+  Settings: "Settings"
+};
+
+const ButtonIcons = {
+  [ButtonName.Project]: PeopleIcon,
+  [ButtonName.Term]: BarChartIcon,
+  [ButtonName.Settings]: SettingsIcon
+};
+
 const PorjectItem = ({
   project
 }) => {
@@ -41,7 +53,8 @@ const PorjectItem = ({
         navigate(Paths.Dashboard);
       }}
       key={translationProject}
-      selected={currentProject === translationProject && location.pathname === Paths.Dashboard}
+      selected={currentProject === translationProject &&
+        (location.pathname === Paths.Dashboard || location.pathname === Paths.Index)}
     >
       <ListItemIcon>
         <StarIcon color='warning'/>
@@ -52,18 +65,6 @@ const PorjectItem = ({
         </Badge>
       }
     </ListItemButton>);
-};
-
-const ButtonName = {
-  Project: "Project",
-  Term: "Term library",
-  Settings: "Settings"
-};
-
-const ButtonIcons = {
-  [ButtonName.Project]: PeopleIcon,
-  [ButtonName.Term]: BarChartIcon,
-  [ButtonName.Settings]: SettingsIcon
 };
 
 const MainItem = ({
@@ -121,7 +122,7 @@ export const MainListItems = ({ isDrawerOpen }) => {
         url={Paths.Term} />
       <MainItem
         primary={ButtonName.Settings}
-        url={Paths.Project} />
+        url={Paths.Settings} />
     </React.Fragment>
   );
 };
