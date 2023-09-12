@@ -80,7 +80,10 @@ export default function EnhancedTable () {
   return (
     <Box sx={{ width: "100%" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
-        <EnhancedTableToolbar numSelected={selected.length} selected={selected} rowsPerPageOptions={[5, 10, 25]}
+        <EnhancedTableToolbar
+          numSelected={selected.length}
+          selected={selected}
+          rowsPerPageOptions={[5, 10, 25]}
           component="div"
           count={rowsWithStatusFilter.length}
           rowsPerPage={rowsPerPage}

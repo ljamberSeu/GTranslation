@@ -48,11 +48,7 @@ export default function EnhancedTableToolbar (props) {
             Translations
             </Typography>
           )}
-
-        <TablePagination
-          {...props}
-        />
-
+        <TablePagination {...props} style={{ width: "800px" }}/>
         {numSelected > 0
           ? (
             <div style={{ gap: "10px", display: "flex" }}>
