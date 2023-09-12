@@ -12,7 +12,6 @@ import {
   LatencyLoader,
   LatencyWrapper,
   OutputCard,
-  PromptStarter,
   Suggestion,
   SuggestionList
 } from "@fluentai/react-copilot";
@@ -174,16 +173,13 @@ const useStyles = makeStyles({
   }
 });
 
+const initialChatHistory = [];
+
 export const ReactChatIntegration = () => {
   const [loadingState, setLoadingState] = React.useState(undefined);
   const [text, setText] = React.useState("");
   const [latencyMessage, setLatencyMessage] = React.useState("");
-  const [cardContent, setCardContent] = React.useState(
-    <Body1 block>
-      Here are some documents that have relevant information for the marketing
-      campaign meeting:
-    </Body1>
-  );
+  const [chatHistory, setCatHistory] = React.useState(initialChatHistory);
 
   const menuButtonRef = React.useRef(null);
 
@@ -193,7 +189,6 @@ export const ReactChatIntegration = () => {
 
   const handleSubmit = () => {
     setText("");
-    setCardContent("");
     setLatencyMessage("Reading emails");
     setLoadingState("latency");
     setTimeout(() => {
@@ -207,62 +202,29 @@ export const ReactChatIntegration = () => {
     }, 6000);
 
     setTimeout(() => {
-      setCardContent(
-        <Body1 block>
-          Here are some documents that have relevant information for the
-          marketing campaign meeting:
-        </Body1>
+      setCatHistory((preChats) => [...preChats, {
+        isUser: false,
+        messages: ["Here are some documents that have relevant information for the marketing campaign meeting:"]
+      }]
       );
     }, 6500);
 
     setTimeout(() => {
-      setCardContent(
-        <>
-          <Body1 block>
-            Here are some documents that have relevant information for the
-            marketing campaign meeting:
-          </Body1>
-          <Body1>
-            <ul>
-              <li>
-                <Link>Marketing Campaign Objectives</Link> outlines goals,
-                including increasing brand awareness, increasing conversion
-                rates, and improving customer retention.
-              </li>
-            </ul>
-          </Body1>
-        </>
-      );
+      setCatHistory((preChats) => {
+        preChats[preChats.length - 1].messages.push(`Marketing Campaign Objectives outlines goals,
+        including increasing brand awareness, increasing conversion
+        rates, and improving customer retention.`);
+        return preChats;
+      });
     }, 7800);
 
     setTimeout(() => {
-      setCardContent(
-        <>
-          <Body1 block>
-            Here are some documents that have relevant information for the
-            marketing campaign meeting:
-          </Body1>
-          <Body1>
-            <ul>
-              <li>
-                <Link>Marketing Campaign Objectives</Link> outlines goals,
-                including increasing brand awareness, increasing conversion
-                rates, and improving customer retention.
-              </li>
-              <li>
-                <Link>Q4 Creative Concepts</Link> proposes ideas such as
-                personalizing ads for target audiences and adding interactive
-                elements.
-              </li>
-            </ul>
-          </Body1>
-          <div>
-            <div>
-              <FeedbackButtons />
-            </div>
-          </div>
-        </>
-      );
+      setCatHistory((preChats) => {
+        preChats[preChats.length - 1].messages.push(`Q4 Creative Concepts proposes ideas such as
+        personalizing ads for target audiences and adding interactive
+        elements.`);
+        return preChats;
+      });
     }, 9000);
 
     setTimeout(() => {
@@ -281,112 +243,54 @@ export const ReactChatIntegration = () => {
       <Chat ref={scrollDiv} className={styles.chat}>
         <OutputCard className={styles.card}>
           <Body1>Hi Kat,</Body1>
-
           <Body1>
-            Ready to explore? Select one of the suggestions below to get
-            started...
-          </Body1>
-
-          <div className={styles.prompts}>
-            <PromptStarter
-              icon={<AppFolder16Regular />}
-              category="Summarize"
-              prompt={
-                <Body1>
-                  Review key points in{" "}
-                  <span className={styles.promptHighlight}>file</span>
-                </Body1>
-              }
-            />
-
-            <PromptStarter
-              icon={<AppFolder16Regular />}
-              category="Create"
-              prompt={<Body1>Write more about...</Body1>}
-            />
-
-            <PromptStarter
-              icon={<AppFolder16Regular />}
-              category="Ask"
-              prompt={<Body1>Tell me about my day</Body1>}
-              badge="NEW"
-            />
-          </div>
-          <Body1>
-            You can use the prompt guide for suggestions by selecting this
-            button <Sparkle16Regular />
+            The GPT translation is not good enough for you? Select one of the suggestions below
+            or give me more hints to get
+            a new string  <Sparkle16Regular />!
           </Body1>
         </OutputCard>
-        <ChatMyMessage
-          body={{ className: styles.chatMyMessageBody }}
-          root={{ className: styles.chatMyMessage }}
-        >
-          Tell me about my day
-        </ChatMyMessage>
-        <ChatMessage
-          body={{ className: styles.chatMessageBody }}
-          root={{ className: styles.chatMessage }}
-        >
-          You have 2 new messages from Chris, and 3 meetings today
-        </ChatMessage>
-        {loadingState !== undefined && (
-          <ChatMyMessage
-            body={{ className: styles.chatMyMessageBody }}
-            root={{ className: styles.chatMyMessage }}
-          >
-            Summarize my emails from Chris
-          </ChatMyMessage>
-        )}
+        {
+          chatHistory.map((chat) => {
+            const { isUser, messages } = chat;
+            const Message = isUser ? ChatMyMessage : ChatMessage;
+            return <Message
+              body={{ className: isUser ? styles.chatMyMessageBody : styles.chatMessageBody }}
+              root={{ className: isUser ? styles.chatMyMessage : styles.chatMessage }}
+            >
+              {messages.map((message) => <Body1 block>{message}</Body1>)}
+            </Message>;
+          })
+        }
 
-        {loadingState !== undefined
-          ? (
-            loadingState === "latency"
-              ? (
-                <LatencyWrapper className={styles.latencyWrapper}>
-                  <LatencyLoader header={latencyMessage} className={styles.latency}>
-                    <AttachmentTag
-                      className={styles.tag}
-                      media={<Mail16Regular />}
-                      content="Marketing Campaign"
-                    />
-                    {latencyMessage === "Almost there..." && (
-                      <AttachmentTag
-                        className={styles.tag}
-                        media={<Mail16Regular />}
-                        content="Q4 stuff"
-                      />
-                    )}
-                  </LatencyLoader>
-                  <LatencyCancel>Cancel</LatencyCancel>
-                </LatencyWrapper>
-              )
-              : (
-                <ChatMessage
-                  body={{
-                    children: (_, props) => (
-                      <OutputCard isLoading={loadingState === "loading"} {...props}>
-                        {cardContent}
-                      </OutputCard>
-                    ),
+        {loadingState === "latency" &&
+            <LatencyWrapper className={styles.latencyWrapper}>
+              <LatencyLoader header={latencyMessage} className={styles.latency}>
+                <AttachmentTag
+                  className={styles.tag}
+                  media={<Mail16Regular />}
+                  content="Marketing Campaign"
+                />
+                {latencyMessage === "Almost there..." && (
+                  <AttachmentTag
+                    className={styles.tag}
+                    media={<Mail16Regular />}
+                    content="Q4 stuff"
+                  />
+                )}
+              </LatencyLoader>
+              <LatencyCancel>Cancel</LatencyCancel>
+            </LatencyWrapper>
 
-                    className: styles.chatMessageBody
-                  }}
-                  root={{
-                    className: styles.chatMessage
-                  }}
-                ></ChatMessage>
-              )
-          )
-          : null}
+        }
       </Chat>
 
       <div className={styles.inputArea}>
         <SuggestionList reload={{ onClick: handleReload }}>
           <Suggestion onClick={handleSubmit}>
-            Summarize my emails from Chris
+            Can you make the text sound more like how a person would say it?
           </Suggestion>
           <Suggestion>
-            Brainstorm ideas for virtual team bonding activity
+            The translation needs to be payment-related.
           </Suggestion>
         </SuggestionList>
         <Textarea
@@ -407,7 +311,6 @@ export const ReactChatIntegration = () => {
                     shape="circular"
                   />
                 </AttachmentMenuTrigger>
-
                 <AttachmentMenuPopover>
                   <AttachmentMenuList>
                     {initialAttachments.map((attachment, index) => {

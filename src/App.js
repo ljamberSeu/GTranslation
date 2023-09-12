@@ -8,22 +8,11 @@ import { TranslationDBCountQuery } from "./dashboard/components/api/api-count-qu
 import { DashboardSection } from "./pages/dashboard-section";
 import { TermLibSection } from "./pages/term-lib-section";
 import { Paths } from "./constants";
-import { makeStyles, tokens, webLightTheme, FluentProvider, Text } from "@fluentui/react-components";
-import { OutputCard, CopilotProvider } from "@fluentai/react-copilot";
-import { SparkleFilled } from "@fluentui/react-icons";
+import { webLightTheme, FluentProvider } from "@fluentui/react-components";
+import { CopilotProvider } from "@fluentai/react-copilot";
 
 const initialProject = TranslationProject.CRYPTOHUB;
-const useStyles = makeStyles({
-  brand: {
-    color: tokens.colorBrandForeground1
-  },
-  card: {
-    display: "flex",
-    flexDirection: "row",
-    width: "400px",
-    height: "200px"
-  }
-});
+
 export default function App () {
   const [rows, setRows] = React.useState([]);
   const [allProjectCounts, setAllProjectCounts] = React.useState({});
@@ -33,7 +22,6 @@ export default function App () {
   const [updateQuerys, setUpdateQuerys] = React.useState({});
   const [locale, setLocale] = React.useState(TranslationLocale.ZHHANS);
   const [filters, setFilters] = React.useState([]);
-  const styles = useStyles();
 
   const [startDate, setStartDate] = React.useState(() => {
     const d = new Date();
