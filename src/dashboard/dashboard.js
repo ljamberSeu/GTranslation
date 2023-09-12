@@ -29,44 +29,50 @@ export default function Dashboard () {
             <Orders />
           </Grid>
 
-          <Grid item xs={12} md={3} lg={3}>
-            <Paper
-              sx={{
-                p: 2,
-                display: "flex",
-                flexDirection: "column",
-                height: 340
-              }}
-            >
-              <Chart />
-            </Paper>
-          </Grid>
+          <div style={{
+            maxHeight: "1000px",
+            display: "flex",
+            gap: "10px"
+          }}>
+            <Grid item xs={12} md={3} lg={3}>
+              <Paper
+                sx={{
+                  p: 2,
+                  display: "flex",
+                  flexDirection: "column",
+                  height: "100%"
+                }}
+              >
+                <Chart />
+              </Paper>
+            </Grid>
 
-          <Grid item xs={12} md={5} lg={5}>
-            <Paper
-              sx={{
-                p: 2,
-                display: "flex",
-                flexDirection: "column",
-                height: 340
-              }}
-            >
-              <Project />
-            </Paper>
-          </Grid>
+            <Grid item xs={12} md={5} lg={5}>
+              <Paper
+                sx={{
+                  p: 2,
+                  display: "flex",
+                  flexDirection: "column",
+                  height: "100%"
+                }}
+              >
+                <Project />
+              </Paper>
+            </Grid>
 
-          <Grid item xs={12} md={4} lg={4}>
-            <Paper
-              sx={{
-                p: 2,
-                display: "flex",
-                flexDirection: "column",
-                height: 340
-              }}
-            >
-              <TranslationRules />
-            </Paper>
-          </Grid>
+            <Grid item xs={12} md={4} lg={4}>
+              <Paper
+                sx={{
+                  p: 2,
+                  display: "flex",
+                  flexDirection: "column",
+                  height: "100%"
+                }}
+              >
+                <TranslationRules />
+              </Paper>
+            </Grid>
+          </div>
         </Grid>
       </Container>
     </Box>

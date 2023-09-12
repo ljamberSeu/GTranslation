@@ -7,6 +7,7 @@ import { TranslationDBQuery } from "./dashboard/components/api/api-list";
 import { TranslationDBCountQuery } from "./dashboard/components/api/api-count-query";
 import { DashboardSection } from "./pages/dashboard-section";
 import { TermLibSection } from "./pages/term-lib-section";
+import { Paths } from "./constants";
 const initialProject = TranslationProject.CRYPTOHUB;
 
 export default function App () {
@@ -48,10 +49,10 @@ export default function App () {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<DashboardSection />} />
-            <Route index path="/dashboard" element={<DashboardSection />} />
-            <Route path="/termlib" element={<TermLibSection />} />
-            <Route path="/project" element={<TermLibSection />} />
-            <Route path="/settings" element={<TermLibSection />} />
+            <Route index path={Paths.Dashboard} element={<DashboardSection />} />
+            <Route path={Paths.Term} element={<TermLibSection />} />
+            <Route path={Paths.Project} element={<TermLibSection />} />
+            <Route path={Paths.Settings} element={<TermLibSection />} />
           </Routes>
         </BrowserRouter>
       </GridContext.Provider>

@@ -1,0 +1,21 @@
+{
+  "trailingSlash": "auto",
+  "routes": [
+    {
+      "route": "/dashboard",
+      "redirect": "/"
+    },
+    {
+      "route": "/project",
+      "redirect": "/"
+    },
+    {
+      "route": "/termlib",
+      "redirect": "/"
+    },
+    {
+      "route": "/settings",
+      "redirect": "/"
+    }
+  ]
+}

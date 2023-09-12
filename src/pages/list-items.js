@@ -14,7 +14,8 @@ import StarIcon from "@mui/icons-material/Star";
 import Badge from "@mui/material/Badge";
 import { TranslationContext } from "../data";
 import { TranslationProject } from "../dashboard/grid/components/constants";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import { Paths } from "../constants";
 
 const TranslationProjectNames = {
   [TranslationProject.ADS]: "Ads",
@@ -27,37 +28,73 @@ const PorjectItem = ({
   project
 }) => {
   const navigate = useNavigate();
-  const { allProjectCounts, setProject } = React.useContext(TranslationContext);
+  const { allProjectCounts, setProject, project: currentProject } = React.useContext(TranslationContext);
   const translationProject = TranslationProject[project];
   const name = TranslationProjectNames[translationProject];
+  const location = useLocation();
 
   return (
     <ListItemButton
       sx={{ pl: 4 }}
       onClick={() => {
         setProject(translationProject);
-        navigate("/dashboard");
+        navigate(Paths.Dashboard);
       }}
       key={translationProject}
+      selected={currentProject === translationProject && location.pathname === Paths.Dashboard}
     >
       <ListItemIcon>
         <StarIcon color='warning'/>
       </ListItemIcon>
       {
         <Badge color="error" badgeContent={allProjectCounts[translationProject]}>
-          <ListItemText primary={name} sx={{ width: "70px" }}/>
+          <ListItemText primary={name} sx={{ width: "70px" }} />
         </Badge>
       }
     </ListItemButton>);
 };
+
+const ButtonName = {
+  Project: "Project",
+  Term: "Term library",
+  Settings: "Settings"
+};
+
+const ButtonIcons = {
+  [ButtonName.Project]: PeopleIcon,
+  [ButtonName.Term]: BarChartIcon,
+  [ButtonName.Settings]: SettingsIcon
+};
+
+const MainItem = ({
+  primary,
+  url
+}) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const onClick = React.useCallback(() => {
+    navigate(url);
+  }, [primary, url, navigate]);
+  const Icon = ButtonIcons[primary];
+
+  return (
+    <ListItemButton onClick={onClick} selected={location.pathname === url}>
+      <ListItemIcon>
+        <Icon />
+      </ListItemIcon>
+      <ListItemText primary={primary} />
+    </ListItemButton>);
+};
+
 export const MainListItems = ({ isDrawerOpen }) => {
   const [open, setOpen] = React.useState(true);
+  const navigate = useNavigate();
   const handleClick = () => {
     setOpen(!open);
-    navigate("/dashboard");
+    navigate(Paths.Dashboard);
   };
   const isSecondItemOpen = isDrawerOpen && open;
-  const navigate = useNavigate();
 
   return (
     <React.Fragment>
@@ -71,29 +108,20 @@ export const MainListItems = ({ isDrawerOpen }) => {
       <Collapse in={isSecondItemOpen} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           {
-            Object.keys(TranslationProject).map(key => <PorjectItem project={key}/>)
+            Object.keys(TranslationProject).map(key =>
+              <PorjectItem project={key} />)
           }
         </List>
       </Collapse>
-
-      <ListItemButton onClick={() => navigate("/project")}>
-        <ListItemIcon>
-          <PeopleIcon />
-        </ListItemIcon>
-        <ListItemText primary="Project" />
-      </ListItemButton>
-      <ListItemButton onClick={() => navigate("/termlib")}>
-        <ListItemIcon>
-          <BarChartIcon />
-        </ListItemIcon>
-        <ListItemText primary="Term library" />
-      </ListItemButton>
-      <ListItemButton onClick={() => navigate("/settings")}>
-        <ListItemIcon>
-          <SettingsIcon />
-        </ListItemIcon>
-        <ListItemText primary="Settings" />
-      </ListItemButton>
+      <MainItem
+        primary={ButtonName.Project}
+        url={Paths.Project} />
+      <MainItem
+        primary={ButtonName.Term}
+        url={Paths.Term} />
+      <MainItem
+        primary={ButtonName.Settings}
+        url={Paths.Project} />
     </React.Fragment>
   );
 };
