@@ -9,10 +9,10 @@ function createData (time, amount) {
 }
 
 const data = [
-  createData("00:00", 0),
-  createData("03:00", 300),
-  createData("06:00", 600),
-  createData("09:00", 800),
+  createData("00:00", 800),
+  createData("03:00", 860),
+  createData("06:00", 900),
+  createData("09:00", 930),
   createData("12:00", 1500),
   createData("15:00", 2000),
   createData("18:00", 2400),
@@ -25,7 +25,7 @@ export default function Chart () {
 
   return (
     <React.Fragment>
-      <Title>History</Title>
+      <Title>Your Reviewed Items</Title>
       <ResponsiveContainer>
         <LineChart
           data={data}
@@ -54,7 +54,7 @@ export default function Chart () {
                 ...theme.typography.body1
               }}
             >
-              Reviewed Item Counts
+              Counts
             </Label>
           </YAxis>
           <Line

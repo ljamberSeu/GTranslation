@@ -5,7 +5,7 @@ import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Chart from "./chart";
-import Deposits from "./deposits";
+import { Project, TranslationRules } from "./deposits";
 import Orders from "./grid";
 
 export default function Dashboard () {
@@ -29,29 +29,42 @@ export default function Dashboard () {
             <Orders />
           </Grid>
 
-          <Grid item xs={12} md={8} lg={9}>
+          <Grid item xs={12} md={3} lg={3}>
             <Paper
               sx={{
                 p: 2,
                 display: "flex",
                 flexDirection: "column",
-                height: 240
+                height: 340
               }}
             >
               <Chart />
             </Paper>
           </Grid>
 
-          <Grid item xs={12} md={4} lg={3}>
+          <Grid item xs={12} md={5} lg={5}>
             <Paper
               sx={{
                 p: 2,
                 display: "flex",
                 flexDirection: "column",
-                height: 240
+                height: 340
               }}
             >
-              <Deposits />
+              <Project />
+            </Paper>
+          </Grid>
+
+          <Grid item xs={12} md={4} lg={4}>
+            <Paper
+              sx={{
+                p: 2,
+                display: "flex",
+                flexDirection: "column",
+                height: 340
+              }}
+            >
+              <TranslationRules />
             </Paper>
           </Grid>
         </Grid>
