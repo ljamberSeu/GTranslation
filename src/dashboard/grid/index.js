@@ -137,7 +137,7 @@ export default function EnhancedTable () {
         label="Dense padding"
       />
       <FormControlLabel
-        control={<Switch checked={!showAll} onChange={(event) => setShowAll(event.target.checked)} />}
+        control={<Switch checked={!showAll} onChange={(event) => setShowAll(!event.target.checked)} />}
         label={"Filter all pendings strings"}
       />
     </Box>
