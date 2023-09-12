@@ -1,5 +1,4 @@
-
-function descendingComparator(a, b, orderBy) {
+function descendingComparator (a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
   }
@@ -9,8 +8,8 @@ function descendingComparator(a, b, orderBy) {
   return 0;
 }
 
-export function getComparator(order, orderBy) {
-  return order === 'desc'
+export function getComparator (order, orderBy) {
+  return order === "desc"
     ? (a, b) => descendingComparator(a, b, orderBy)
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
@@ -19,7 +18,7 @@ export function getComparator(order, orderBy) {
 // stableSort() brings sort stability to non-modern browsers (notably IE11). If you
 // only support modern browsers you can replace stableSort(exampleArray, exampleComparator)
 // with exampleArray.slice().sort(exampleComparator)
-export function stableSort(array, comparator) {
+export function stableSort (array, comparator) {
   const stabilizedThis = array.map((el, index) => [el, index]);
   stabilizedThis.sort((a, b) => {
     const order = comparator(a[0], b[0]);

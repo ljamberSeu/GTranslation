@@ -1,25 +1,25 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
-import Chart from './chart';
-import Deposits from './deposits';
-import Orders from './grid';
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import Container from "@mui/material/Container";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import Chart from "./chart";
+import Deposits from "./deposits";
+import Orders from "./grid";
 
-export default function Dashboard() {
+export default function Dashboard () {
   return (
     <Box
       component="main"
       sx={{
         backgroundColor: (theme) =>
-          theme.palette.mode === 'light'
+          theme.palette.mode === "light"
             ? theme.palette.grey[100]
             : theme.palette.grey[900],
         flexGrow: 1,
-        height: '100vh',
-        overflow: 'auto',
+        height: "100vh",
+        overflow: "auto"
       }}
     >
       <Toolbar />
@@ -33,9 +33,9 @@ export default function Dashboard() {
             <Paper
               sx={{
                 p: 2,
-                display: 'flex',
-                flexDirection: 'column',
-                height: 240,
+                display: "flex",
+                flexDirection: "column",
+                height: 240
               }}
             >
               <Chart />
@@ -46,9 +46,9 @@ export default function Dashboard() {
             <Paper
               sx={{
                 p: 2,
-                display: 'flex',
-                flexDirection: 'column',
-                height: 240,
+                display: "flex",
+                flexDirection: "column",
+                height: 240
               }}
             >
               <Deposits />

@@ -1,20 +1,20 @@
-import * as React from 'react';
-import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
-import TextField from '@mui/material/TextField';
-import Select from '@mui/material/Select';
-import DeleteIcon from '@mui/icons-material/Delete';
-import Grid from '@mui/material/Grid';
-import { headCells } from '../grid-config';
-import MenuItem from '@mui/material/MenuItem';
-import { StringCondition } from '../../components/api/api-list';
+import * as React from "react";
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
+import TextField from "@mui/material/TextField";
+import Select from "@mui/material/Select";
+import DeleteIcon from "@mui/icons-material/Delete";
+import Grid from "@mui/material/Grid";
+import { headCells } from "../grid-config";
+import MenuItem from "@mui/material/MenuItem";
+import { StringCondition } from "../../components/api/api-list";
 
 const StringConditionNameMap = {
-  [StringCondition.EQUALS]: 'Equals',
-  [StringCondition.STARTS_WITH]: 'Starts with',
-  [StringCondition.ENDS_WITH]: 'Ends with',
-  [StringCondition.CONTAINS]: 'Contains',
-  [StringCondition.NOT_CONTAINS]: 'Not contains',
+  [StringCondition.EQUALS]: "Equals",
+  [StringCondition.STARTS_WITH]: "Starts with",
+  [StringCondition.ENDS_WITH]: "Ends with",
+  [StringCondition.CONTAINS]: "Contains",
+  [StringCondition.NOT_CONTAINS]: "Not contains"
 };
 
 export const FilterRow = ({ filter, onChange, onDelete }) => {
@@ -44,7 +44,7 @@ export const FilterRow = ({ filter, onChange, onDelete }) => {
   };
 
   return (
-    <Grid container spacing={2} alignItems="center" sx={{paddingInline: '20px'}}>
+    <Grid container spacing={2} alignItems="center" sx={{ paddingInline: "20px" }}>
       <Grid item xs={12} sm={3}>
         <Select
           value={column}

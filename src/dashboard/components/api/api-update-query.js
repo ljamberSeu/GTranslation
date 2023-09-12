@@ -1,16 +1,16 @@
-import * as React from 'react';
+import * as React from "react";
 
-import { updateSingleTranslation } from './apis';
-import { TranslationContext } from '../../../data';
+import { updateSingleTranslation } from "./apis";
+import { TranslationContext } from "../../../data";
 
 const getNewRow = (row, newFiles) => ({
   ...row,
   ...newFiles,
-  reviewer: 'danluo@microsoft.com',
+  reviewer: "danluo@microsoft.com"
 });
 
 export class TranslationDBUpdateQuery {
-  constructor(id, rows, newFileds, setRows) {
+  constructor (id, rows, newFileds, setRows) {
     this.rows = rows;
     this.id = id;
     this.newFileds = newFileds;
@@ -21,14 +21,17 @@ export class TranslationDBUpdateQuery {
     this.UpdateData();
   }
 
-  UpdateData() {
+  UpdateData () {
     const newRow = getNewRow(this.row, this.newFileds);
     updateSingleTranslation(newRow).then((r) => {
       if (r) {
         this.setRows((rows) => rows?.map?.((or) => or.id === r.id ? { ...newRow, ...r } : or));
       } else {
         this.setRows((rows) => rows?.map?.((or) => or));
-        this.error = `Update "${this.row?.original}" API call failed by someone has changed this translation, please refresh the page and try again.`;
+        this.error =
+          `Update 
+          "${this.row?.original}" 
+          API call failed by someone has changed this translation, please refresh the page and try again.`;
       }
     }).catch((e) => {
       this.error = "API call failed.";
@@ -37,7 +40,7 @@ export class TranslationDBUpdateQuery {
     });
   }
 
-  getRow() {
+  getRow () {
     for (let i = 0; i < this.rows.length; i++) {
       if (this.rows[i].id === this.id) {
         return this.rows[i];
@@ -45,21 +48,21 @@ export class TranslationDBUpdateQuery {
     }
   }
 
-  IsAPIcallInProgress() {
+  IsAPIcallInProgress () {
     return this.apiIsprogressing;
   }
 
-  GetErrorMessage() {
+  GetErrorMessage () {
     return this.error;
   }
 
-  GetId() {
+  GetId () {
     return this.row?.id + this.row?.locale + this.row?.original;
   }
 }
 
 export const useUpdateQuerys = () => {
-  const { setRows, rows, setUpdateQuerys }= React.useContext(TranslationContext);
+  const { setRows, rows, setUpdateQuerys } = React.useContext(TranslationContext);
 
   const update = React.useCallback((
     id,
@@ -70,10 +73,9 @@ export const useUpdateQuerys = () => {
       new TranslationDBUpdateQuery(
         id, rows,
         updateFileds,
-        setRows, setUpdateQuerys,
+        setRows, setUpdateQuerys
       )]);
-  }, [rows, setRows, setUpdateQuerys])
+  }, [rows, setRows, setUpdateQuerys]);
 
   return update;
-
 };

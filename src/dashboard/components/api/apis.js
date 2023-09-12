@@ -1,10 +1,10 @@
 export const maxItems = 3000;
 const defaultFirst = 3000;
-export const maxAPICallTimes = Math.ceil(maxItems/defaultFirst);
+export const maxAPICallTimes = Math.ceil(maxItems / defaultFirst);
 
 const callFuctionWithErrorHandle = async (apiCallFunction) => {
   try {
-    const result =  await apiCallFunction();
+    const result = await apiCallFunction();
     return result;
   } catch (error) {
     console.log(error);
@@ -12,9 +12,9 @@ const callFuctionWithErrorHandle = async (apiCallFunction) => {
 };
 
 export const getDataFromDB = async () => callFuctionWithErrorHandle(async () => {
-  let endpoint = '/data-api/rest/Translation';
-  let response = await fetch(endpoint);
-  let data = await response.json();
+  const endpoint = "/data-api/rest/Translation";
+  const response = await fetch(endpoint);
+  const data = await response.json();
   return data.value;
 });
 
@@ -26,33 +26,34 @@ export const getDataFromDBStatus = async ({
   after,
   first = defaultFirst,
   onlyPrimary = false,
-  filter = {},
+  filter = {}
 }) => callFuctionWithErrorHandle(async () => {
   if (status !== null) {
-    filter['status'] = `{ eq: ${status} }`;
+    filter.status = `{ eq: ${status} }`;
   }
   if (startDate) {
-    filter['timestamp'] = `{gt: "${startDate.$d.toISOString()}"}`;
+    filter.timestamp = `{gt: "${startDate.$d.toISOString()}"}`;
   }
   if (project) {
-    filter['project'] = `{eq: "${project}"}`;
+    filter.project = `{eq: "${project}"}`;
   }
   if (locale) {
-    filter['locale'] = `{eq: "${locale}"}`;
+    filter.locale = `{eq: "${locale}"}`;
   }
 
   const queryConditions = {};
-  queryConditions['filter'] = `{${Object.entries(filter).map(([key, value]) => `${key}: ${value}`).join(', ')}}`;
-  queryConditions['first'] = first;
-  if (after) queryConditions['after'] = `"${after}"`;
+  queryConditions.filter = `{${Object.entries(filter).map(([key, value]) => `${key}: ${value}`).join(", ")}}`;
+  queryConditions.first = first;
+  if (after) queryConditions.after = `"${after}"`;
 
   const query = `
     {
-      translations(${Object.entries(queryConditions).map(([key, value]) => `${key}: ${value}`).join(', ')})
+      translations(${Object.entries(queryConditions).map(([key, value]) => `${key}: ${value}`).join(", ")})
       {
         items {
-          ${onlyPrimary ? 'id' :
-          `id
+          ${onlyPrimary
+    ? "id"
+    : `id
           status
           timestamp
           original
@@ -72,9 +73,9 @@ export const getDataFromDBStatus = async ({
 
   const endpoint = "/data-api/graphql";
   const response = await fetch(endpoint, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ query: query })
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ query })
   });
   const result = await response.json();
   return result?.data?.translations;
@@ -94,7 +95,7 @@ export const updateSingleTranslation = async (row) => callFuctionWithErrorHandle
         lasted_update
       }
     }`;
-  const lasted_update = new Date(row.lasted_update);
+  const lastedUpdate = new Date(row.lasted_update);
 
   const query = {
     query: gql,
@@ -107,9 +108,9 @@ export const updateSingleTranslation = async (row) => callFuctionWithErrorHandle
         original: row.original,
         reviewer: row.reviewer,
         finalTranslation: row.finalTranslation,
-        lasted_update: lasted_update.toISOString().slice(0, 19).replace('T', ' ')
+        lasted_update: lastedUpdate.toISOString().slice(0, 19).replace("T", " ")
       }
-    } 
+    }
   };
 
   const endpoint = "/data-api/graphql";

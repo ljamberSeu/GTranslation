@@ -1,13 +1,13 @@
-import * as React from 'react';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import { TranslationStatus } from './constants';
-import { useUpdateQuerys } from '../../components/api/api-update-query';
-import { DemoItem } from '@mui/x-date-pickers/internals/demo';
+import * as React from "react";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import { TranslationStatus } from "./constants";
+import { useUpdateQuerys } from "../../components/api/api-update-query";
+import { DemoItem } from "@mui/x-date-pickers/internals/demo";
 
-export default function TranslationForm({ row, setOpen }) {
+export default function TranslationForm ({ row, setOpen }) {
   const [finalTranslation, setFinalTranslation] = React.useState(row?.finalTranslation || row?.gptTranslation);
   const update = useUpdateQuerys();
 
@@ -51,28 +51,28 @@ export default function TranslationForm({ row, setOpen }) {
             autoFocus
           />
         </Grid>
-        <div style={{padding: '20px', float:'left', width: '100%',display: 'flex'}}>
-          <div style={{display: 'flex', gap: '10px', float:'left'}}>
+        <div style={{ padding: "20px", float: "left", width: "100%", display: "flex" }}>
+          <div style={{ display: "flex", gap: "10px", float: "left" }}>
             <Button
               variant="contained"
               onClick={() => {
                 setOpen(false);
-                update(row.id,  {
+                update(row.id, {
                   status: finalTranslation ? TranslationStatus.DONE : TranslationStatus.UNKNOEN,
-                  finalTranslation: finalTranslation,
+                  finalTranslation
                 });
               }}> Accepcted </Button>
             <Button variant="contained" onClick={() => setOpen(false)} color="primary"> Cancel </Button>
           </div>
           <Button
             variant="contained"
-            sx={{marginInlineStart: 'auto'}}
+            sx={{ marginInlineStart: "auto" }}
             title="Reject this translation as didn't have enough information to translate it correctly"
             onClick={() => {
               setOpen(false);
-              update(row.id,  {
+              update(row.id, {
                 status: TranslationStatus.REJECTED,
-                finalTranslation: finalTranslation,
+                finalTranslation
               });
             }}
             color="error"

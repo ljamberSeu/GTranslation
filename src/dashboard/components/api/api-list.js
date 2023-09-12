@@ -1,46 +1,46 @@
-import { getDataFromDBStatus, maxAPICallTimes } from './apis';
-import { TranslationStatus } from '../../grid/components/constants';
+import { getDataFromDBStatus, maxAPICallTimes } from "./apis";
+import { TranslationStatus } from "../../grid/components/constants";
 
 export const StringCondition = {
-  EQUALS: 'eq',
-  STARTS_WITH: 'startsWith',
-  ENDS_WITH: 'endsWith',
-  CONTAINS: 'contains',
-  NOT_CONTAINS: 'notContains',
+  EQUALS: "eq",
+  STARTS_WITH: "startsWith",
+  ENDS_WITH: "endsWith",
+  CONTAINS: "contains",
+  NOT_CONTAINS: "notContains"
 };
 
 export class Filter {
-  constructor() {
+  constructor () {
     this.value = null;
     this.column = null;
     this.condition = null;
   }
 
-  getCondition() {
+  getCondition () {
     return this.condition;
   }
 
-  setCondition(condition) {
+  setCondition (condition) {
     this.condition = condition;
   }
 
-  getColumn() {
+  getColumn () {
     return this.column;
   }
 
-  setColumn(column) {
+  setColumn (column) {
     this.column = column;
   }
 
-  getValue() {
+  getValue () {
     return this.value;
   }
 
-  setValue(value) {
+  setValue (value) {
     this.value = value;
   }
 
-  setFilterObject(filter) {
+  setFilterObject (filter) {
     if (this.column && this.condition && this.value) {
       filter[this.column] = `{ ${this.condition}: "${this.value}" }`;
     }
@@ -48,7 +48,7 @@ export class Filter {
 }
 
 export class TranslationDBQuery {
-  constructor(showAll, project, startDate, locale, setRows, filters) {
+  constructor (showAll, project, startDate, locale, setRows, filters) {
     this.showAll = showAll;
     this.project = project;
     this.startDate = startDate;
@@ -62,14 +62,14 @@ export class TranslationDBQuery {
     this.getData();
   }
 
-  getData(after) {
+  getData (after) {
     getDataFromDBStatus({
       status: this.showAll ? null : TranslationStatus.UNKNOEN,
       startDate: this.startDate,
       project: this.project,
       locale: this.locale,
       after,
-      filter: this.filter,
+      filter: this.filter
     // eslint-disable-next-line no-loop-func
     }).then((data) => {
       if (this.shouldStopPreviousCall) {
@@ -93,15 +93,15 @@ export class TranslationDBQuery {
     });
   }
 
-  stopAPIcall() {
+  stopAPIcall () {
     this.shouldStopPreviousCall = true;
   }
 
-  IsAPIcallInProgress() {
+  IsAPIcallInProgress () {
     return this.apiIsprogressing;
   }
 
-  IsDataOverFlow() {
+  IsDataOverFlow () {
     return !this.IsAPIcallInProgress() && this.pageCounts > maxAPICallTimes - 1;
   }
 }

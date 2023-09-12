@@ -1,17 +1,17 @@
-import * as React from 'react';
-import Tooltip from '@mui/material/Tooltip';
-import AddIcon from '@mui/icons-material/Add';
-import { Button } from '@mui/material';
-import Menu from '@mui/material/Menu';
-import { FilterRow } from './filter-row';
-import { Filter } from '../../components/api/api-list';
-import { GridContext } from '../../../data';
+import * as React from "react";
+import Tooltip from "@mui/material/Tooltip";
+import AddIcon from "@mui/icons-material/Add";
+import { Button } from "@mui/material";
+import Menu from "@mui/material/Menu";
+import { FilterRow } from "./filter-row";
+import { Filter } from "../../components/api/api-list";
+import { GridContext } from "../../../data";
 
-export default function FilterMenu({
+export default function FilterMenu ({
   anchorEl, setAnchorEl
 }) {
   const open = !!anchorEl;
-  const {setFilters: setFiltersForAPI} = React.useContext(GridContext);
+  const { setFilters: setFiltersForAPI } = React.useContext(GridContext);
   const [filters, setFilters] = React.useState([new Filter()]);
 
   return (
@@ -24,10 +24,10 @@ export default function FilterMenu({
         setAnchorEl(null);
       }}
       MenuListProps={{
-        'aria-labelledby': 'basic-button',
+        "aria-labelledby": "basic-button"
       }}
-      transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-      anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+      transformOrigin={{ horizontal: "right", vertical: "top" }}
+      anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
     >
       {filters?.map?.((f, i) => (
         <FilterRow
@@ -45,16 +45,16 @@ export default function FilterMenu({
           }}
         />
       ))}
-      <div style={{margin: '20px'}}>
+      <div style={{ margin: "20px" }}>
         <Tooltip title="Add new filter">
           <Button onClick={() => setFilters(s => [...(s || []), new Filter()])} variant='contained' color='inherit' >
             <AddIcon color='primary' />
             And
           </Button>
         </Tooltip>
-        <Tooltip title="Apply filters" sx={{marginInlineStart: '20px'}}>
+        <Tooltip title="Apply filters" sx={{ marginInlineStart: "20px" }}>
           <Button
-            onClick={() => { 
+            onClick={() => {
               setFiltersForAPI(filters);
               setAnchorEl(null);
             }}

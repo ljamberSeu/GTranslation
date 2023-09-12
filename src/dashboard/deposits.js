@@ -1,9 +1,9 @@
-import * as React from 'react';
-import Link from '@mui/material/Link';
-import Typography from '@mui/material/Typography';
-import Title from './components/title';
+import * as React from "react";
+import Link from "@mui/material/Link";
+import Typography from "@mui/material/Typography";
+import Title from "./components/title";
 
-export default function Deposits() {
+export default function Deposits () {
   return (
     <React.Fragment>
       <Title>Xpay</Title>

@@ -1,66 +1,65 @@
-
 export const headCells = [
   {
-    id: 'original',
+    id: "original",
     numeric: true,
     disablePadding: true,
-    label: 'Original string',
+    label: "Original string",
     sortabled: true,
-    isSearchable: true,
+    isSearchable: true
   },
   {
-    id: 'gptTranslation',
+    id: "gptTranslation",
     numeric: false,
     disablePadding: false,
-    label: 'GPT Translation',
+    label: "GPT Translation",
     sortabled: true,
-    isSearchable: true,
+    isSearchable: true
   },
   {
-    id: 'devComment',
+    id: "devComment",
     numeric: true,
     disablePadding: false,
-    label: 'Dev comment',
+    label: "Dev comment",
     sortabled: true,
-    isSearchable: true,
+    isSearchable: true
   },
   {
-    id: 'stringOwner',
+    id: "stringOwner",
     numeric: true,
     disablePadding: false,
-    label: 'String owner',
+    label: "String owner",
     sortabled: true,
-    isSearchable: true,
+    isSearchable: true
   },
   {
-    id: 'reviewer',
-    numeric: true,
-    disablePadding: false,
-    sortabled: true,
-    label: 'Lasted reviewer',
-    isSearchable: true,
-  },
-  {
-    id: 'finalTranslation',
+    id: "reviewer",
     numeric: true,
     disablePadding: false,
     sortabled: true,
-    label: 'Final translation',
-    isSearchable: true,
+    label: "Lasted reviewer",
+    isSearchable: true
   },
   {
-    id: 'status',
+    id: "finalTranslation",
+    numeric: true,
+    disablePadding: false,
+    sortabled: true,
+    label: "Final translation",
+    isSearchable: true
+  },
+  {
+    id: "status",
     numeric: false,
     disablePadding: false,
     sortabled: true,
-    label: 'Status',
-    isSearchable: true,
+    label: "Status",
+    isSearchable: true
   },
   {
-    id: 'actions',
+    id: "actions",
     numeric: false,
     disablePadding: false,
     sortabled: false,
-    label: 'Actions',
-  },
+    label: "Actions"
+  }
 ];
