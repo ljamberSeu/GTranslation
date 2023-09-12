@@ -32,10 +32,14 @@ const PorjectItem = ({
   const name = TranslationProjectNames[translationProject];
 
   return (
-    <ListItemButton sx={{ pl: 4 }} onClick={() => {
-      setProject(translationProject);
-      navigate("/dashboard");
-    }} key={translationProject}>
+    <ListItemButton
+      sx={{ pl: 4 }}
+      onClick={() => {
+        setProject(translationProject);
+        navigate("/dashboard");
+      }}
+      key={translationProject}
+    >
       <ListItemIcon>
         <StarIcon color='warning'/>
       </ListItemIcon>
