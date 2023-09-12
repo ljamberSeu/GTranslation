@@ -246,7 +246,7 @@ export const ReactChatIntegration = () => {
           <Body1>
             The GPT translation is not good enough for you? Select one of the suggestions below
             or give me more hints to get
-            a new string  <Sparkle16Regular />!
+            a better translation  <Sparkle16Regular />!
           </Body1>
         </OutputCard>
         {
