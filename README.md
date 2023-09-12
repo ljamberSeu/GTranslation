@@ -1,4 +1,7 @@
 # local development
+
+`npm install -g vsts-npm-auth` 	 
+`vsts-npm-auth -config .npmrc`
 `yarn`
 
 open cmd and run:
