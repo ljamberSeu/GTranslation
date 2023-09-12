@@ -208,7 +208,7 @@ export const ReactChatIntegration = () => {
     setTimeout(() => {
       setCatHistory((preChats) => [...preChats, {
         isUser: false,
-        messages: ["输入账户名:"]
+        messages: ["从关注列表中添加或移除"]
       }]);
     }, 6500);
 
@@ -252,15 +252,8 @@ export const ReactChatIntegration = () => {
                 <AttachmentTag
                   className={styles.tag}
                   media={<Mail16Regular />}
-                  content="Marketing Campaign"
+                  content="translation..."
                 />
-                {latencyMessage === "Almost there..." && (
-                  <AttachmentTag
-                    className={styles.tag}
-                    media={<Mail16Regular />}
-                    content="Q4 stuff"
-                  />
-                )}
               </LatencyLoader>
               <LatencyCancel>Cancel</LatencyCancel>
             </LatencyWrapper>
