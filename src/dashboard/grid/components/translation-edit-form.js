@@ -6,6 +6,7 @@ import Button from "@mui/material/Button";
 import { TranslationStatus } from "./constants";
 import { useUpdateQuerys } from "../../components/api/api-update-query";
 import { DemoItem } from "@mui/x-date-pickers/internals/demo";
+import { ReactChatIntegration } from "./chat";
 
 export default function TranslationForm ({ row, setOpen }) {
   const [finalTranslation, setFinalTranslation] = React.useState(row?.finalTranslation || row?.gptTranslation);
@@ -51,6 +52,7 @@ export default function TranslationForm ({ row, setOpen }) {
             autoFocus
           />
         </Grid>
+        <ReactChatIntegration />
         <div style={{ padding: "20px", float: "left", width: "100%", display: "flex" }}>
           <div style={{ display: "flex", gap: "10px", float: "left" }}>
             <Button

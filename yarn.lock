@@ -1599,6 +1599,13 @@
   dependencies:
     "@swc/helpers" "^0.4.14"
 
+"@fluentui-contrib/react-chat@^0.1.6":
+  version "0.1.6"
+  resolved "https://pkgs.dev.azure.com/uifabric/_packaging/fluentai-react/npm/registry/@fluentui-contrib/react-chat/-/react-chat-0.1.6.tgz#e0e8ed50f3720cfe4f002296ee8210cc2356ff47"
+  integrity sha1-4OjtUPNyDP5PACKW7oIQzCNW/0c=
+  dependencies:
+    "@swc/helpers" "~0.5.1"
+
 "@fluentui/keyboard-keys@^9.0.3", "@fluentui/keyboard-keys@^9.0.4":
   version "9.0.4"
   resolved "https://msasg.pkgs.visualstudio.com/_packaging/XPay/npm/registry/@fluentui/keyboard-keys/-/keyboard-keys-9.0.4.tgz"
@@ -3058,7 +3065,7 @@
   dependencies:
     tslib "^2.4.0"
 
-"@swc/helpers@^0.5.1":
+"@swc/helpers@^0.5.1", "@swc/helpers@~0.5.1":
   version "0.5.2"
   resolved "https://msasg.pkgs.visualstudio.com/_packaging/XPay/npm/registry/@swc/helpers/-/helpers-0.5.2.tgz"
   integrity sha1-heoMdkULYa19EKNwUCie3teDwn0=

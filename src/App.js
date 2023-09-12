@@ -8,8 +8,22 @@ import { TranslationDBCountQuery } from "./dashboard/components/api/api-count-qu
 import { DashboardSection } from "./pages/dashboard-section";
 import { TermLibSection } from "./pages/term-lib-section";
 import { Paths } from "./constants";
-const initialProject = TranslationProject.CRYPTOHUB;
+import { makeStyles, tokens, webLightTheme, FluentProvider, Text } from "@fluentui/react-components";
+import { OutputCard, CopilotProvider } from "@fluentai/react-copilot";
+import { SparkleFilled } from "@fluentui/react-icons";
 
+const initialProject = TranslationProject.CRYPTOHUB;
+const useStyles = makeStyles({
+  brand: {
+    color: tokens.colorBrandForeground1
+  },
+  card: {
+    display: "flex",
+    flexDirection: "row",
+    width: "400px",
+    height: "200px"
+  }
+});
 export default function App () {
   const [rows, setRows] = React.useState([]);
   const [allProjectCounts, setAllProjectCounts] = React.useState({});
@@ -19,6 +33,7 @@ export default function App () {
   const [updateQuerys, setUpdateQuerys] = React.useState({});
   const [locale, setLocale] = React.useState(TranslationLocale.ZHHANS);
   const [filters, setFilters] = React.useState([]);
+  const styles = useStyles();
 
   const [startDate, setStartDate] = React.useState(() => {
     const d = new Date();
@@ -41,21 +56,41 @@ export default function App () {
     });
   }, [showAll, startDate, project, locale, filters]);
   return (
-    <TranslationContext.Provider
-      value={{
-        rows, setRows, showAll, setShowAll, project, setProject, query, allProjectCounts, updateQuerys, setUpdateQuerys
-      }}>
-      <GridContext.Provider value={{ startDate, setStartDate, locale, setLocale, filters, setFilters }}>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<DashboardSection />} />
-            <Route index path={Paths.Dashboard} element={<DashboardSection />} />
-            <Route path={Paths.Term} element={<TermLibSection />} />
-            <Route path={Paths.Project} element={<TermLibSection />} />
-            <Route path={Paths.Settings} element={<TermLibSection />} />
-          </Routes>
-        </BrowserRouter>
-      </GridContext.Provider>
-    </TranslationContext.Provider>
+    <FluentProvider theme={webLightTheme}>
+      <CopilotProvider
+        mode='sidecar' // or 'canvas'
+        copilotTokens={{
+          colorBrandFlair1: "red", // replace with your brand colors
+          colorBrandFlair2: "orange",
+          colorBrandFlair3: "yellow"
+        }}
+      >
+        <TranslationContext.Provider
+          value={{
+            rows,
+            setRows,
+            showAll,
+            setShowAll,
+            project,
+            setProject,
+            query,
+            allProjectCounts,
+            updateQuerys,
+            setUpdateQuerys
+          }}>
+          <GridContext.Provider value={{ startDate, setStartDate, locale, setLocale, filters, setFilters }}>
+            <BrowserRouter>
+              <Routes>
+                <Route path="/" element={<DashboardSection />} />
+                <Route index path={Paths.Dashboard} element={<DashboardSection />} />
+                <Route path={Paths.Term} element={<TermLibSection />} />
+                <Route path={Paths.Project} element={<TermLibSection />} />
+                <Route path={Paths.Settings} element={<TermLibSection />} />
+              </Routes>
+            </BrowserRouter>
+          </GridContext.Provider>
+        </TranslationContext.Provider>
+      </CopilotProvider>
+    </FluentProvider>
   );
 }
