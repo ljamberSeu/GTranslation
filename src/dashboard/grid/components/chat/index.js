@@ -180,6 +180,9 @@ export const ReactChatIntegration = () => {
   const [text, setText] = React.useState("");
   const [latencyMessage, setLatencyMessage] = React.useState("");
   const [chatHistory, setCatHistory] = React.useState(initialChatHistory);
+  const [suggestions, setSuggestions] = React.useState(
+    ["Can you make the text sound more like how a person would say it?",
+      "The translation needs to be payment-related."]);
 
   const menuButtonRef = React.useRef(null);
 
@@ -187,13 +190,14 @@ export const ReactChatIntegration = () => {
     console.log("Reload");
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (newMessage) => {
+    setCatHistory((preChats) => [...preChats, {
+      isUser: true,
+      messages: [newMessage]
+    }]);
     setText("");
-    setLatencyMessage("Reading emails");
+    setLatencyMessage("Thinking about it...");
     setLoadingState("latency");
-    setTimeout(() => {
-      setLatencyMessage("Thinking about it...");
-    }, 1500);
     setTimeout(() => {
       setLatencyMessage("Almost there...");
     }, 3000);
@@ -204,28 +208,9 @@ export const ReactChatIntegration = () => {
     setTimeout(() => {
       setCatHistory((preChats) => [...preChats, {
         isUser: false,
-        messages: ["Here are some documents that have relevant information for the marketing campaign meeting:"]
-      }]
-      );
+        messages: ["输入账户名:"]
+      }]);
     }, 6500);
-
-    setTimeout(() => {
-      setCatHistory((preChats) => {
-        preChats[preChats.length - 1].messages.push(`Marketing Campaign Objectives outlines goals,
-        including increasing brand awareness, increasing conversion
-        rates, and improving customer retention.`);
-        return preChats;
-      });
-    }, 7800);
-
-    setTimeout(() => {
-      setCatHistory((preChats) => {
-        preChats[preChats.length - 1].messages.push(`Q4 Creative Concepts proposes ideas such as
-        personalizing ads for target audiences and adding interactive
-        elements.`);
-        return preChats;
-      });
-    }, 9000);
 
     setTimeout(() => {
       setLoadingState("done");
@@ -261,8 +246,7 @@ export const ReactChatIntegration = () => {
             </Message>;
           })
         }
-
-        {loadingState === "latency" &&
+        { loadingState === "latency" &&
             <LatencyWrapper className={styles.latencyWrapper}>
               <LatencyLoader header={latencyMessage} className={styles.latency}>
                 <AttachmentTag
@@ -280,18 +264,15 @@ export const ReactChatIntegration = () => {
               </LatencyLoader>
               <LatencyCancel>Cancel</LatencyCancel>
             </LatencyWrapper>
-
         }
       </Chat>
-
       <div className={styles.inputArea}>
         <SuggestionList reload={{ onClick: handleReload }}>
-          <Suggestion onClick={handleSubmit}>
-            Can you make the text sound more like how a person would say it?
-          </Suggestion>
-          <Suggestion>
-            The translation needs to be payment-related.
-          </Suggestion>
+          {suggestions.map((suggestion) => {
+            return (<Suggestion onClick={() => handleSubmit(suggestion)}>
+              {suggestion}
+            </Suggestion>);
+          })}
         </SuggestionList>
         <Textarea
           contentAfter={
@@ -329,7 +310,7 @@ export const ReactChatIntegration = () => {
             </>
           }
           onChange={(e, d) => setText(d.value)}
-          onSubmit={handleSubmit}
+          onSubmit={() => handleSubmit(text)}
           value={text}
         />
       </div>
