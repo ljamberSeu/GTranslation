@@ -27,7 +27,7 @@ const addScore = (items) => {
 export default function App () {
   const [rows, setRows] = React.useState([]);
   const [allProjectCounts, setAllProjectCounts] = React.useState({});
-  const [showAll, setShowAll] = React.useState(false);
+  const [showAll, setShowAll] = React.useState(true);
   const [project, setProject] = React.useState(initialProject);
   const [query, setQuery] = React.useState(null);
   const [updateQuerys, setUpdateQuerys] = React.useState({});
