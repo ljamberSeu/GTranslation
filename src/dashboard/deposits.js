@@ -8,6 +8,7 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import { TranslationContext } from "../data";
 import { TranslationProject, TranslationProjectNames } from "./grid/components/constants";
+import { Paths } from "../constants";
 
 const style = {
   position: "absolute",
@@ -97,7 +98,7 @@ export function TranslationRules () {
          includes <Link
           color="primary"
           // eslint-disable-next-line max-len
-          href="https://microsoftapc-my.sharepoint.com/:w:/g/personal/jubeeluo_microsoft_com/EfBKirN4KvlHiTrxQ9qxRGQBLXCMYVMDG2_LoPP1PIptjQ?e=AWlYYR" >
+          href={Paths.Term} >
           {TranslationProjectNames[project]} terminology
         </Link> related to cryptocurrency payments.
       </Typography>

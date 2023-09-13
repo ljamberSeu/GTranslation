@@ -1,11 +1,11 @@
 import * as React from "react";
 import Layout from "./layout-section";
-import Terms from "../dashboard/term";
+import Project from "../dashboard/project";
 
-export function TermLibSection () {
+export function ProjectSection () {
   return (
     <Layout>
-      <Terms />
+      <Project />
     </Layout>
   );
 }

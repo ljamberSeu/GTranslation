@@ -2,10 +2,10 @@ import * as React from "react";
 import Layout from "./layout-section";
 import Terms from "../dashboard/term";
 
-export function TermLibSection () {
+export function SettingSection () {
   return (
     <Layout>
-      <Terms />
+      <div />
     </Layout>
   );
 }

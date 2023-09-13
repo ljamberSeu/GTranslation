@@ -7,6 +7,8 @@ import { TranslationDBQuery } from "./dashboard/components/api/api-list";
 import { TranslationDBCountQuery } from "./dashboard/components/api/api-count-query";
 import { DashboardSection } from "./pages/dashboard-section";
 import { TermLibSection } from "./pages/term-lib-section";
+import { ProjectSection } from "./pages/project-section";
+import { SettingSection } from "./pages/settings-section";
 import { Paths } from "./constants";
 import { webLightTheme, FluentProvider } from "@fluentui/react-components";
 import { CopilotProvider } from "@fluentai/react-copilot";
@@ -95,8 +97,8 @@ export default function App () {
                 <Route path="/" element={<DashboardSection />} />
                 <Route index path={Paths.Dashboard} element={<DashboardSection />} />
                 <Route path={Paths.Term} element={<TermLibSection />} />
-                <Route path={Paths.Project} element={<TermLibSection />} />
-                <Route path={Paths.Settings} element={<TermLibSection />} />
+                <Route path={Paths.Project} element={<ProjectSection />} />
+                <Route path={Paths.Settings} element={<SettingSection />} />
               </Routes>
             </BrowserRouter>
           </GridContext.Provider>
