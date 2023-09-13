@@ -12,16 +12,38 @@ import { webLightTheme, FluentProvider } from "@fluentui/react-components";
 import { CopilotProvider } from "@fluentai/react-copilot";
 
 const initialProject = TranslationProject.CRYPTOHUB;
+const addScore = (items) => {
+  return items.map(item => {
+    switch (item.id) {
+    case "addOrRemoveFromWatchlist":
+      return { ...item, score: 0.5 };
+    case "coolDownTimeLessTip":
+      return { ...item, score: 0.8 };
+    }
+    return { ...item, score: 1 };
+  });
+};
 
 export default function App () {
   const [rows, setRows] = React.useState([]);
   const [allProjectCounts, setAllProjectCounts] = React.useState({});
-  const [showAll, setShowAll] = React.useState(true);
+  const [showAll, setShowAll] = React.useState(false);
   const [project, setProject] = React.useState(initialProject);
   const [query, setQuery] = React.useState(null);
   const [updateQuerys, setUpdateQuerys] = React.useState({});
   const [locale, setLocale] = React.useState(TranslationLocale.ZHHANS);
   const [filters, setFilters] = React.useState([]);
+
+  const setRowsWithScore = React.useCallback((data) => {
+    if (typeof data === "function") {
+      setRows((preRows) => {
+        const newRows = data(preRows);
+        return newRows ? addScore(newRows) : newRows;
+      });
+    } else {
+      setRows(data);
+    }
+  }, [setRows]);
 
   const [startDate, setStartDate] = React.useState(() => {
     const d = new Date();
@@ -40,9 +62,10 @@ export default function App () {
       if (query !== null) {
         query.stopAPIcall();
       }
-      return new TranslationDBQuery(showAll, project, startDate, locale, setRows, filters);
+      return new TranslationDBQuery(showAll, project, startDate, locale, setRowsWithScore, filters);
     });
-  }, [showAll, startDate, project, locale, filters]);
+  }, [showAll, startDate, project, locale, filters, setRowsWithScore]);
+
   return (
     <FluentProvider theme={webLightTheme}>
       <CopilotProvider
@@ -56,7 +79,7 @@ export default function App () {
         <TranslationContext.Provider
           value={{
             rows,
-            setRows,
+            setRows: setRowsWithScore,
             showAll,
             setShowAll,
             project,

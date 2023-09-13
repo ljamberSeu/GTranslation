@@ -48,6 +48,13 @@ export const headCells = [
     isSearchable: true
   },
   {
+    id: "score",
+    numeric: true,
+    disablePadding: false,
+    sortabled: true,
+    label: "Score"
+  },
+  {
     id: "status",
     numeric: false,
     disablePadding: false,

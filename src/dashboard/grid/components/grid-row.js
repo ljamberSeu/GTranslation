@@ -78,6 +78,7 @@ export default function TranslationRow (props) {
         key={row.id}
         selected={isItemSelected}
         sx={{ cursor: "pointer" }}
+        className={row.id}
       >
         <TableCell padding="checkbox">
           <Checkbox
@@ -101,6 +102,7 @@ export default function TranslationRow (props) {
         <TableCell align="left">{row.stringOwner}</TableCell>
         <TableCell align="left">{row.reviewer}</TableCell>
         <TableCell align="left">{<div>{row.finalTranslation}</div>}</TableCell>
+        <TableCell align="left">{row.score}</TableCell>
         <TableCell align="left"><RowStatus row={row}/></TableCell>
         <TableCell align="left" sx={{ margin: "20px" }}>
           <div style={{ display: "flex", gap: "10px" }}>

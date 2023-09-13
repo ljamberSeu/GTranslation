@@ -21,7 +21,7 @@ import APIStatus from "../components/api/api-status";
 
 export default function EnhancedTable () {
   const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState("");
+  const [orderBy, setOrderBy] = React.useState("score");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
