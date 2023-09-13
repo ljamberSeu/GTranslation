@@ -9,6 +9,7 @@ import Box from "@mui/material/Box";
 import { TranslationContext } from "../data";
 import { TranslationProject, TranslationProjectNames } from "./grid/components/constants";
 import { Paths } from "../constants";
+import { useNavigate } from "react-router-dom";
 
 const style = {
   position: "absolute",
@@ -82,6 +83,7 @@ export function Project () {
 export function TranslationRules () {
   const [open, setOpen] = React.useState(false);
   const { project } = React.useContext(TranslationContext);
+  const navigate = useNavigate();
 
   return (
     <React.Fragment>
@@ -95,10 +97,7 @@ export function TranslationRules () {
       </Typography>
       <Typography color="text.secondary" sx={{ flex: 1 }}>
          2. Please ensure that the translation
-         includes <Link
-          color="primary"
-          // eslint-disable-next-line max-len
-          href={Paths.Term} >
+         includes <Link color="primary" href="#" onClick={() => navigate(Paths.Term)} >
           {TranslationProjectNames[project]} terminology
         </Link> related to cryptocurrency payments.
       </Typography>
