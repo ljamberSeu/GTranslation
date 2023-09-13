@@ -13,16 +13,9 @@ import Collapse from "@mui/material/Collapse";
 import StarIcon from "@mui/icons-material/Star";
 import Badge from "@mui/material/Badge";
 import { TranslationContext } from "../data";
-import { TranslationProject } from "../dashboard/grid/components/constants";
+import { TranslationProject, TranslationProjectNames } from "../dashboard/grid/components/constants";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Paths } from "../constants";
-
-const TranslationProjectNames = {
-  [TranslationProject.ADS]: "Ads",
-  [TranslationProject.CRYPTOSHARED]: "Crypto Shared",
-  [TranslationProject.CRYPTOHUB]: "Crypto Hub",
-  [TranslationProject.CRYPTODRAWER]: "Crypto Drawer"
-};
 
 const ButtonName = {
   Project: "Project",

@@ -7,7 +7,6 @@ import {
   AttachmentMenuTrigger,
   AttachmentTag,
   CopilotProvider,
-  FeedbackButtons,
   LatencyCancel,
   LatencyLoader,
   LatencyWrapper,
@@ -19,18 +18,14 @@ import { Textarea } from "@fluentai/textarea";
 import {
   Body1,
   Button,
-  Image,
-  Link,
   MenuButton,
   makeStyles,
   shorthands,
   tokens
 } from "@fluentui/react-components";
 import {
-  AppFolder16Regular,
   Attach16Regular,
   Mail16Regular,
-  Mail20Regular,
   SparkleRegular,
   Sparkle16Regular
 } from "@fluentui/react-icons";
@@ -38,68 +33,7 @@ import { Chat, ChatMessage, ChatMyMessage } from "@fluentui-contrib/react-chat";
 import { GridContext } from "../../../../data";
 import { LocaleStrings } from "../constants";
 import { getNewAPICallSendData } from "./utils";
-
-const initialAttachments = [
-  {
-    content: "2023 Project Planning.docx",
-    media: (
-      <Image
-        alt="DOCX file type"
-        height={20}
-        src="https://res-1.cdn.office.net/files/fabric-cdn-prod_20221209.001/assets/item-types/20/docx.svg"
-        width={20}
-      />
-    )
-  },
-  {
-    content: "Millennium Point Request for Proposal",
-    media: <Mail20Regular />
-  },
-  {
-    content: "Summit Center Budget.xlsx",
-    media: (
-      <Image
-        alt="XLSX file type"
-        height={20}
-        src="https://res-1.cdn.office.net/files/fabric-cdn-prod_20221209.001/assets/item-types/20/xlsx.svg"
-        width={20}
-      />
-    )
-  },
-  {
-    content: "Summit Center Client Update - Feb 16 2023.ppt",
-    media: (
-      <Image
-        alt="PPTX file type"
-        height={20}
-        src="https://res-1.cdn.office.net/files/fabric-cdn-prod_20221209.001/assets/item-types/20/pptx.svg"
-        width={20}
-      />
-    )
-  },
-  {
-    content: "March Sales.pdf",
-    media: (
-      <Image
-        alt="PDF file type"
-        height={20}
-        src="https://res-1.cdn.office.net/files/fabric-cdn-prod_20221209.001/assets/item-types/20/pdf.svg"
-        width={20}
-      />
-    )
-  },
-  {
-    content: "March Sales Summary.ppt",
-    media: (
-      <Image
-        alt="PPTX file type"
-        height={20}
-        src="https://res-1.cdn.office.net/files/fabric-cdn-prod_20221209.001/assets/item-types/20/pptx.svg"
-        width={20}
-      />
-    )
-  }
-];
+import { initialAttachments, mockSuggestions } from "./mock";
 
 const useStyles = makeStyles({
   provider: {
@@ -183,9 +117,7 @@ export const ReactChatIntegration = ({ row }) => {
   const [text, setText] = React.useState("");
   const [latencyMessage, setLatencyMessage] = React.useState("");
   const [chatHistory, setCatHistory] = React.useState(initialChatHistory);
-  const [suggestions, setSuggestions] = React.useState(
-    ["Can you make the text sound more like how a person would say it?",
-      "The translation needs to be payment-related."]);
+  const [suggestions, setSuggestions] = React.useState(mockSuggestions);
   const { locale } = React.useContext(GridContext);
 
   const menuButtonRef = React.useRef(null);

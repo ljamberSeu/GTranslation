@@ -23,3 +23,10 @@ export const LocaleStrings = {
   [TranslationLocale.PRBR]: "Brazilian Portuguese",
   [TranslationLocale.ZHHANS]: "Simplified Chinese"
 };
+
+export const TranslationProjectNames = {
+  [TranslationProject.ADS]: "Ads",
+  [TranslationProject.CRYPTOSHARED]: "Crypto Shared",
+  [TranslationProject.CRYPTOHUB]: "Crypto Hub",
+  [TranslationProject.CRYPTODRAWER]: "Crypto Drawer"
+};

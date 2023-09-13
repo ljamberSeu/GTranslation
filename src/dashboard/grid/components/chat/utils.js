@@ -24,7 +24,7 @@ export const getNewAPICallSendData = (chatHistory, row) => {
         and current tranlation is ${row.finalTranslation && row.finalTranslation.length > 0
     ? row.finalTranslation
     : row.gptTranslation},
-        please help to regenerate the translation of following string:
+        please help to generate a better translation of following string:
         ${row.original}`;
         firstUser = false;
       }
