@@ -21,7 +21,10 @@ export const getNewAPICallSendData = (chatHistory, row) => {
       let extendMessage = "";
       if (firstUser && isUser) {
         extendMessage = `${messages.join(",")}, the description of this string is ${row.devComment},
-        and current tranlation is ${row.gptTranslation}, please help to regenerate the translation of following string:
+        and current tranlation is ${row.finalTranslation && row.finalTranslation.length > 0
+    ? row.finalTranslation
+    : row.gptTranslation},
+        please help to regenerate the translation of following string:
         ${row.original}`;
         firstUser = false;
       }
