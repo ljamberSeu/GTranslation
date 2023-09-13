@@ -9,6 +9,7 @@ import Typography from "@mui/material/Typography";
 import { Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import TermSelect from "./components/term-select";
+import Paper from "@mui/material/Paper";
 
 // Generate Order Data
 function createData (key, zhans, pt) {
@@ -122,26 +123,28 @@ export default function TermsLib () {
         </Button>
         <TermSelect />
       </div>
-      <Table size="small">
-        <TableHead>
-          <TableRow>
-            <TableCell>Key</TableCell>
-            <TableCell>Zhans</TableCell>
-            <TableCell>Pt-BR</TableCell>
-            <TableCell>Id</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.id}>
-              <TableCell>{row.key}</TableCell>
-              <TableCell>{row.zhans}</TableCell>
-              <TableCell>{row.pt}</TableCell>
-              <TableCell>{row.id}</TableCell>
+      <Paper>
+        <Table size="small">
+          <TableHead>
+            <TableRow>
+              <TableCell>Key</TableCell>
+              <TableCell>Zhans</TableCell>
+              <TableCell>Pt-BR</TableCell>
+              <TableCell>Id</TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+          </TableHead>
+          <TableBody>
+            {rows.map((row) => (
+              <TableRow key={row.id}>
+                <TableCell>{row.key}</TableCell>
+                <TableCell>{row.zhans}</TableCell>
+                <TableCell>{row.pt}</TableCell>
+                <TableCell>{row.id}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </Paper>
     </div>
   );
 }
