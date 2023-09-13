@@ -79,7 +79,7 @@ export default function TranslationForm ({ row, setOpen }) {
               marginBlock: "20px",
               width: "fit-content"
             }}>
-              { chatOpen && <ReactChatIntegration /> }
+              { chatOpen && <ReactChatIntegration row={row} /> }
             </div>
           </Grid>
 

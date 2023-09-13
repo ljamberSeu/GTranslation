@@ -17,3 +17,9 @@ export const TranslationLocale = {
   ID: "id",
   PRBR: "pr-BR"
 };
+
+export const LocaleStrings = {
+  [TranslationLocale.ID]: "Indonesia",
+  [TranslationLocale.PRBR]: "Brazilian Portuguese",
+  [TranslationLocale.ZHHANS]: "Simplified Chinese"
+};

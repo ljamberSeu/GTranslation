@@ -1,14 +1,8 @@
 import * as React from "react";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
-import { TranslationLocale } from "../grid/components/constants";
+import { LocaleStrings } from "../grid/components/constants";
 import { GridContext } from "../../data";
-
-const localeStrings = {
-  [TranslationLocale.ID]: "Indonesia",
-  [TranslationLocale.PRBR]: "Brazilian Portuguese",
-  [TranslationLocale.ZHHANS]: "Simplified Chinese"
-};
 
 export default function LocalSelect () {
   const { locale, setLocale } = React.useContext(GridContext);
@@ -30,8 +24,8 @@ export default function LocalSelect () {
         placeholder='Select target language'
       >
         {
-          Object.keys(localeStrings).map((key) => {
-            return <MenuItem value={key} key={key}>{localeStrings[key]}</MenuItem>;
+          Object.keys(LocaleStrings).map((key) => {
+            return <MenuItem value={key} key={key}>{LocaleStrings[key]}</MenuItem>;
           })
         }
       </Select>

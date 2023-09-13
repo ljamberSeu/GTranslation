@@ -35,6 +35,9 @@ import {
   Sparkle16Regular
 } from "@fluentui/react-icons";
 import { Chat, ChatMessage, ChatMyMessage } from "@fluentui-contrib/react-chat";
+import { GridContext } from "../../../../data";
+import { LocaleStrings } from "../constants";
+import { getNewAPICallSendData } from "./utils";
 
 const initialAttachments = [
   {
@@ -175,7 +178,7 @@ const useStyles = makeStyles({
 
 const initialChatHistory = [];
 
-export const ReactChatIntegration = () => {
+export const ReactChatIntegration = ({ row }) => {
   const [loadingState, setLoadingState] = React.useState(undefined);
   const [text, setText] = React.useState("");
   const [latencyMessage, setLatencyMessage] = React.useState("");
@@ -183,6 +186,7 @@ export const ReactChatIntegration = () => {
   const [suggestions, setSuggestions] = React.useState(
     ["Can you make the text sound more like how a person would say it?",
       "The translation needs to be payment-related."]);
+  const { locale } = React.useContext(GridContext);
 
   const menuButtonRef = React.useRef(null);
 
@@ -190,31 +194,47 @@ export const ReactChatIntegration = () => {
     console.log("Reload");
   };
 
+  const callChatAPI = React.useCallback((history) => {
+    const data = getNewAPICallSendData(history, row);
+
+    if (data) {
+      fetch(`/api/chatWithAPI?locale=${LocaleStrings[locale]}&messages=${JSON.stringify(data)}`)
+        .then((re) => {
+          console.log(JSON.stringify(re));
+          re.text().then(result => setCatHistory((preChats) => [...preChats, {
+            isUser: false,
+            messages: [result]
+          }]));
+        })
+        .catch((e) => {
+          console.log(JSON.stringify(e));
+        })
+        .finally(() => {
+          setLoadingState("done");
+        });
+    }
+  }, [row, locale]);
+
   const handleSubmit = (newMessage) => {
-    setCatHistory((preChats) => [...preChats, {
-      isUser: true,
-      messages: [newMessage]
-    }]);
-    setText("");
-    setLatencyMessage("Thinking about it...");
-    setLoadingState("latency");
-    setTimeout(() => {
-      setLatencyMessage("Almost there...");
-    }, 3000);
-    setTimeout(() => {
-      setLoadingState("loading");
-    }, 6000);
-
-    setTimeout(() => {
-      setCatHistory((preChats) => [...preChats, {
-        isUser: false,
-        messages: ["从关注列表中添加或移除"]
-      }]);
-    }, 6500);
-
-    setTimeout(() => {
-      setLoadingState("done");
-    }, 9000);
+    if (newMessage && newMessage.length > 0) {
+      setCatHistory((preChats) => {
+        const newChats = [...preChats, {
+          isUser: true,
+          messages: [newMessage]
+        }];
+        callChatAPI(newChats);
+        return newChats;
+      });
+      setText("");
+      setLatencyMessage("Thinking about it...");
+      setLoadingState("latency");
+      setTimeout(() => {
+        setLatencyMessage("Almost there...");
+      }, 3000);
+      setTimeout(() => {
+        setLoadingState("loading");
+      }, 6000);
+    }
   };
   const scrollDiv = React.useRef(null);
   React.useEffect(() => {
