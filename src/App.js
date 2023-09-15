@@ -62,8 +62,8 @@ export default function App () {
 
   React.useEffect(() => {
     // eslint-disable-next-line no-new
-    new TranslationDBCountQuery(startDate, locale, setAllProjectCounts);
-  }, [startDate, locale]);
+    new TranslationDBCountQuery(startDate, locale, setAllProjectCounts, project);
+  }, [startDate, locale, rows]);
 
   React.useEffect(() => {
     setQuery(query => {
@@ -95,8 +95,7 @@ export default function App () {
             query,
             allProjectCounts,
             updateQuerys,
-            setUpdateQuerys,
-            setAllProjectCounts
+            setUpdateQuerys
           }}>
           <GridContext.Provider value={{ startDate, setStartDate, locale, setLocale, filters, setFilters }}>
             <BrowserRouter>

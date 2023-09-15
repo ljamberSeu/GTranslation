@@ -2,7 +2,6 @@ import * as React from "react";
 
 import { updateSingleTranslation } from "./apis";
 import { TranslationContext } from "../../../data";
-import { TranslationDBCountQuery } from "./api-count-query";
 
 const getNewRow = (row, newFiles) => ({
   ...row,
@@ -11,7 +10,7 @@ const getNewRow = (row, newFiles) => ({
 });
 
 export class TranslationDBUpdateQuery {
-  constructor (id, rows, newFileds, setRows, setAllProjectCounts, project) {
+  constructor (id, rows, newFileds, setRows) {
     this.rows = rows;
     this.id = id;
     this.newFileds = newFileds;
@@ -19,8 +18,6 @@ export class TranslationDBUpdateQuery {
     this.apiIsprogressing = true;
     this.error = null;
     this.row = this.getRow();
-    this.setAllProjectCounts = setAllProjectCounts;
-    this.project = project;
     this.UpdateData();
   }
 
@@ -36,7 +33,6 @@ export class TranslationDBUpdateQuery {
           "${this.row?.original}" 
           API call failed by someone has changed this translation, please refresh the page and try again.`;
       }
-      this.setAllProjectCounts(all => all[this.project]--);
     }).catch((e) => {
       this.error = "API call failed.";
     }).finally(() => {
@@ -66,8 +62,7 @@ export class TranslationDBUpdateQuery {
 }
 
 export const useUpdateQuerys = () => {
-  const { setRows, rows, setUpdateQuerys, setAllProjectCounts, project, locale, startDate } =
-    React.useContext(TranslationContext);
+  const { setRows, rows, setUpdateQuerys } = React.useContext(TranslationContext);
 
   const update = React.useCallback((
     id,
@@ -78,9 +73,9 @@ export const useUpdateQuerys = () => {
       new TranslationDBUpdateQuery(
         id, rows,
         updateFileds,
-        setRows, setUpdateQuerys, setAllProjectCounts, project
+        setRows, setUpdateQuerys
       )]);
-  }, [rows, setRows, setUpdateQuerys, setAllProjectCounts, project]);
+  }, [rows, setRows, setUpdateQuerys]);
 
   return update;
 };
