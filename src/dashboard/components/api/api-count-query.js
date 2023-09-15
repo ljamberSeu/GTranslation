@@ -1,13 +1,15 @@
 import { getDataFromDBStatus } from "./apis";
 import { TranslationStatus, TranslationProject } from "../../grid/components/constants";
 
+let firstRun = true;
 export class TranslationDBCountQuery {
   constructor (startDate, locale, setAllProjectCounts, project) {
     this.startDate = startDate;
     this.locale = locale;
     this.setAllProjectCounts = setAllProjectCounts;
-    this.project = project;
+    this.project = firstRun ? null : project;
     this.getData();
+    firstRun = true;
   }
 
   getData (after) {
