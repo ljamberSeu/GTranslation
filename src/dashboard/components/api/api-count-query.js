@@ -9,7 +9,7 @@ export class TranslationDBCountQuery {
     this.setAllProjectCounts = setAllProjectCounts;
     this.project = firstRun ? null : project;
     this.getData();
-    firstRun = true;
+    firstRun = false;
   }
 
   getData (after) {
