@@ -51,6 +51,7 @@ export default function App () {
     const d = new Date();
     // Set it to 7 days ago ago
     d.setDate(d.getDate());
+    d.setHours(12);
     return dayjs(d);
   });
 
