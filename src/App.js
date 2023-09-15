@@ -95,7 +95,8 @@ export default function App () {
             query,
             allProjectCounts,
             updateQuerys,
-            setUpdateQuerys
+            setUpdateQuerys,
+            setAllProjectCounts
           }}>
           <GridContext.Provider value={{ startDate, setStartDate, locale, setLocale, filters, setFilters }}>
             <BrowserRouter>
