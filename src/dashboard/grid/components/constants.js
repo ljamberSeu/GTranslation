@@ -16,7 +16,7 @@ export const TranslationProject = {
 export const TranslationLocale = {
   ZHHANS: "zh-Hans",
   ID: "id",
-  PRBR: "pr-BR"
+  PRBR: "pt-BR"
 };
 
 export const LocaleStrings = {
