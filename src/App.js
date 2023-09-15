@@ -23,7 +23,8 @@ const addScore = (items) => {
       return {
         ...item,
         score: 0.5,
-        ...(item.locale === TranslationLocale.ZHHANS ? { gptTranslation: "添加或从关注列表中移除" } : {})
+        ...(item.locale === TranslationLocale.ZHHANS ? { gptTranslation: "添加或从关注列表中移除" } : {}),
+        devComment: ""
       };
     }
     return { ...item, score: 1 };
