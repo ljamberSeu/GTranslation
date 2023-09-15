@@ -40,7 +40,7 @@ export default function App () {
     if (typeof data === "function") {
       setRows((preRows) => {
         const newRows = data(preRows);
-        return newRows ? addScore(newRows) : newRows;
+        return newRows && locale === TranslationLocale.ZHHANS ? addScore(newRows) : newRows;
       });
     } else {
       setRows(data);
