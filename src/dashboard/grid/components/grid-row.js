@@ -131,7 +131,7 @@ export default function TranslationRow (props) {
               : <Tooltip title="Accept current translation">
                 <IconButton
                   onClick={(e) => {
-                    update(row.id, { status: TranslationStatus.DONE });
+                    update(row.id, { status: TranslationStatus.DONE, finalTranslation: row.gptTranslation });
                     e.stopPropagation();
                   }}>
                   <CheckSharpIcon color="primary" />
