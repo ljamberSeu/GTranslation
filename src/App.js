@@ -27,7 +27,7 @@ const addScore = (items) => {
         devComment: ""
       };
     }
-    return { ...item, score: 1 };
+    return { ...item, score: 1, stringOwner: "qiowu@microsoft.com" };
   });
 };
 
