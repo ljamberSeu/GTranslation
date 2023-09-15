@@ -17,10 +17,10 @@ const initialProject = TranslationProject.CRYPTOHUB;
 const addScore = (items) => {
   return items.map(item => {
     switch (item.id) {
-    case "addOrRemoveFromWatchlist":
-      return { ...item, score: 0.5 };
-    case "coolDownTimeLessTip":
+    case "authFail":
       return { ...item, score: 0.8 };
+    case "addOrDelete":
+      return { ...item, score: 0.5, gptTranslation: "添加或从关注列表中移除" };
     }
     return { ...item, score: 1 };
   });
