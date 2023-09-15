@@ -20,7 +20,11 @@ const addScore = (items) => {
     case "authFail":
       return { ...item, score: 0.8 };
     case "addOrDelete":
-      return { ...item, score: 0.5, gptTranslation: "添加或从关注列表中移除" };
+      return {
+        ...item,
+        score: 0.5,
+        ...(item.locale === TranslationLocale.ZHHANS ? { gptTranslation: "添加或从关注列表中移除" } : {})
+      };
     }
     return { ...item, score: 1 };
   });
@@ -40,7 +44,7 @@ export default function App () {
     if (typeof data === "function") {
       setRows((preRows) => {
         const newRows = data(preRows);
-        return newRows && locale === TranslationLocale.ZHHANS ? addScore(newRows) : newRows;
+        return newRows ? addScore(newRows) : newRows;
       });
     } else {
       setRows(data);
