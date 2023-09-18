@@ -55,7 +55,7 @@ export default function App () {
   const [startDate, setStartDate] = React.useState(() => {
     const d = new Date();
     // Set it to 7 days ago ago
-    d.setDate(d.getDate());
+    d.setDate(d.getDate() - 100);
     d.setHours(12);
     return dayjs(d);
   });
